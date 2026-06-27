@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#2a5298">
+    <title>Admin - Panitia Pengajian 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Login Modal (Tampil pertama kali) -->
+    <div id="loginModal" class="modal" style="display: flex; align-items: center; justify-content: center;">
+        <div class="modal-content" style="width: 100%; max-width: 400px;">
+            <div style="text-align: center;">
+                <h1 style="color: #2a5298; margin-bottom: 10px;">📚 Panitia Pengajian 2026</h1>
+                <h2 style="font-size: 20px; color: #667eea; margin-bottom: 30px;">Login Admin</h2>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Masukkan username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p style="text-align: center; margin-top: 15px; font-size: 13px; color: #7f8c8d;">
+                    Hubungi ketua panitia untuk mendapat akses admin
+                </p>
+            </form>
+            <div id="loginError" style="color: #e74c3c; text-align: center; margin-top: 10px; display: none;">
+                Username atau password salah!
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Tampil setelah login) -->
+    <div id="mainContent" style="display: none;">
+        <nav class="navbar">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h1>📚 Panitia Pengajian 2026 - Admin</h1>
+                    <button class="btn" style="background: #e74c3c; color: white; padding: 8px 15px;" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- Dashboard Overview -->
+            <div class="dashboard-overview">
+                <div class="card stats">
+                    <h3>Total Donasi Masuk</h3>
+                    <p class="amount" id="totalDonasi">Rp 0</p>
+                    <span class="count">dari <span id="jumlahDonatur">0</span> donatur</span>
+                </div>
+                <div class="card stats">
+                    <h3>Total Pengeluaran</h3>
+                    <p class="amount warning" id="totalPengeluaran">Rp 0</p>
+                </div>
+                <div class="card stats">
+                    <h3>Sisa Dana</h3>
+                    <p class="amount success" id="sisaDana">Rp 0</p>
+                </div>
+                <div class="card stats">
+                    <h3>Persentase Pengeluaran</h3>
+                    <p class="amount" id="persentasePengeluaran">0%</p>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="donasi">Daftar Donatur</button>
+                <button class="tab-btn" data-tab="pengeluaran">Pengeluaran</button>
+                <button class="tab-btn" data-tab="laporan">Laporan</button>
+                <button class="tab-btn" data-tab="input">Input Data</button>
+            </div>
+
+            <!-- Tab: Donasi -->
+            <div id="donasi" class="tab-content active">
+                <div class="card">
+                    <h2>📋 Daftar Donatur</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchDonatur" placeholder="Cari nama donatur...">
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Donatur</th>
+                                    <th>Jumlah Donasi</th>
+                                    <th>Tanggal</th>
+                                    <th>Keterangan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="daftarDonasi">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Pengeluaran -->
+            <div id="pengeluaran" class="tab-content">
+                <div class="card">
+                    <h2>💰 Pengeluaran Belanja</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchPengeluaran" placeholder="Cari item pengeluaran...">
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Item Belanja</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga Satuan</th>
+                                    <th>Total</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="daftarPengeluaran">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Laporan -->
+            <div id="laporan" class="tab-content">
+                <div class="card">
+                    <h2>📊 Laporan Keuangan</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h3>Grafik Perbandingan</h3>
+                            <canvas id="chartPerbandingan"></canvas>
+                        </div>
+                        <div>
+                            <h3>Rincian Pengeluaran</h3>
+                            <canvas id="chartPengeluaran"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📄 Ringkasan Keuangan</h2>
+                    <div class="summary">
+                        <div class="summary-item">
+                            <span>Total Pemasukan:</span>
+                            <strong id="summaryPemasukan">Rp 0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total Pengeluaran:</span>
+                            <strong id="summaryPengeluaran">Rp 0</strong>
+                        </div>
+                        <div class="summary-item highlight">
+                            <span>Saldo Akhir:</span>
+                            <strong id="summarySaldo">Rp 0</strong>
+                        </div>
+                    </div>
+                    <button class="btn btn-print" onclick="cetakLaporan()">🖨️ Cetak Laporan</button>
+                </div>
+            </div>
+
+            <!-- Tab: Input Data -->
+            <div id="input" class="tab-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- Form Donasi -->
+                    <div class="card">
+                        <h2>➕ Tambah Donasi</h2>
+                        <form id="formDonasi">
+                            <div class="form-group">
+                                <label>Nama Donatur *</label>
+                                <input type="text" id="namaDonatur" required placeholder="Masukkan nama">
+                            </div>
+                            <div class="form-group">
+                                <label>Jumlah Donasi (Rp) *</label>
+                                <input type="number" id="jumlahDonasi" required placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Donasi</label>
+                                <input type="date" id="tanggalDonasi">
+                            </div>
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <input type="text" id="keteranganDonasi" placeholder="Opsional">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Tambah Donasi</button>
+                        </form>
+                    </div>
+
+                    <!-- Form Pengeluaran -->
+                    <div class="card">
+                        <h2>➕ Tambah Pengeluaran</h2>
+                        <form id="formPengeluaran">
+                            <div class="form-group">
+                                <label>Item Belanja *</label>
+                                <input type="text" id="itemBelanja" required placeholder="Misal: Nasi Kuning">
+                            </div>
+                            <div class="form-group">
+                                <label>Jumlah *</label>
+                                <input type="number" id="jumlahBelanja" required placeholder="1" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Harga Satuan (Rp) *</label>
+                                <input type="number" id="hargaSatuan" required placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Pembelian</label>
+                                <input type="date" id="tanggalBelanja">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Tambah Pengeluaran</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Edit -->
+        <div id="modalEdit" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Data</h2>
+                <form id="formEdit">
+                    <input type="hidden" id="editId">
+                    <input type="hidden" id="editType">
+                    <div class="form-group">
+                        <label id="editLabel">Nama</label>
+                        <input type="text" id="editValue" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah (Rp)</label>
+                        <input type="number" id="editJumlah" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Panitia Pengajian - Semoga Berkah | Mode: <strong>ADMIN</strong></p>
+        </footer>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
