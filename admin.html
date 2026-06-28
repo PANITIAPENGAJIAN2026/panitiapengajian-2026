@@ -27,7 +27,54 @@
       overflow: hidden;
       pointer-events: none;
     }
+<!-- PAGE DONATUR -->
+<div class="page" id="page-donatur">
+  <div class="page-header">
+    <div>
+      <div class="page-title">🤝 Daftar Donatur</div>
+      <div class="page-sub">Kelola data donatur dan nominal donasi</div>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-ghost" onclick="window.open('index.html#tab-donatur', '_blank')">👁️ Lihat Tampilan</button>
+      <button class="btn btn-primary" onclick="bukaModalTambahDonatur()">➕ Tambah Donatur</button>
+    </div>
+  </div>
 
+  <div class="stats-mini" id="donatur-stats">
+    <div class="stat-mini"><div class="s-val" id="d-total" style="color:#fbbf24;">Rp 0</div><div class="s-lbl">Total Donasi</div></div>
+    <div class="stat-mini"><div class="s-val" id="d-jumlah">0</div><div class="s-lbl">Jumlah Donatur</div></div>
+    <div class="stat-mini"><div class="s-val" id="d-rata">Rp 0</div><div class="s-lbl">Rata-rata</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="ct-icon">📋</div> Tabel Donatur</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Nominal</th>
+            <th>Tanggal</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="donatur-table-body">
+          <tr><td colspan="6" style="text-align:center; padding:30px;">Memuat data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><div class="ct-icon">🖨️</div> Cetak Laporan</div>
+    <p style="color:rgba(255,255,255,0.6); margin-bottom:15px; font-size:0.9em;">Klik tombol di bawah untuk mencetak laporan donatur dalam format yang rapi.</p>
+    <button class="btn btn-success" onclick="window.open('index.html#tab-donatur', '_blank'); setTimeout(()=>window.print(),1000);">
+      🖨️ Buka Halaman Cetak
+    </button>
+  </div>
+</div>
     .bg-animated::before {
       content: '';
       position: absolute;
