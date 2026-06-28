@@ -27,6 +27,32 @@
                 <strong>Admin:</strong> Kelola data donasi dan pengeluaran (username: admin, password: pengajian2026)
             </p>
         </div>
-    </div>
+    </div>async function muatDatabase() {
+  // Ambil data dari database yang ada di repo kita
+  const respon = await fetch('./database.json')
+  const data = await respon.json()
+
+  // Isi data pengaturan otomatis
+  document.getElementById('tahun').textContent = data.pengaturan.tahun
+  document.getElementById('tempat').textContent = data.pengaturan.tempat
+
+  // Buat tabel jadwal otomatis
+  const tabelJadwal = document.querySelector('#jadwal tbody')
+  tabelJadwal.innerHTML = ''
+
+  data.jadwal.forEach(pertemuan => {
+    const baris = document.createElement('tr')
+    baris.innerHTML = `
+      <td>${pertemuan.pertemuan}</td>
+      <td>${pertemuan.tanggal}</td>
+      <td>${pertemuan.pemateri}</td>
+      <td>${pertemuan.tema}</td>
+    `
+    tabelJadwal.appendChild(baris)
+  })
+}
+
+// Jalankan saat website selesai dimuat
+document.addEventListener('DOMContentLoaded', muatDatabase)
 </body>
 </html>
