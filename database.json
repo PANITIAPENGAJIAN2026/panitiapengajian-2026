@@ -64,14 +64,6 @@
         "kategori": "Operasional",
         "keterangan": "Snack & Minuman 20 box",
         "jumlah": 300000
-      },
-      {
-        "id": 4,
-        "tanggal": "3 Januari 2026",
-        "jenis": "keluar",
-        "kategori": "ATK",
-        "keterangan": "Buku Kitab Bulughul Maram 20 eksemplar",
-        "jumlah": 400000
       }
     ]
   }
