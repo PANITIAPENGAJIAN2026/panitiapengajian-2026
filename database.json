@@ -48,14 +48,6 @@
         "kategori": "Iuran Panchakra",
         "keterangan": "Iuran 10 anggota Panchakra @ Rp 250.000",
         "jumlah": 2500000
-      },
-      {
-        "id": 2,
-        "tanggal": "2 Januari 2026",
-        "jenis": "keluar",
-        "kategori": "Honor Pemateri",
-        "keterangan": "Honor Ustadz Dr. Firanda Andirja",
-        "jumlah": 1500000
       }
     ]
   }
