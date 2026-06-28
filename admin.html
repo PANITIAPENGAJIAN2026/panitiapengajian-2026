@@ -1575,7 +1575,10 @@ function bukaModalEditJadwal(idx) {
   `
   document.getElementById('modalOverlay').classList.add('show')
 }
-
+// Tambahkan di sidebar (dalam sidebar-section Pengaturan atau buat section baru):
+<button class="sidebar-btn" onclick="bukaPage('donatur', this)">
+  <div class="btn-icon">🤝</div> Data Donatur
+</button>
 async function simpanJadwalBaru() {
   const data = {
     pertemuan: parseInt(document.getElementById('m-pertemuan').value),
