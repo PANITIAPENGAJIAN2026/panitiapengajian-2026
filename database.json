@@ -24,6 +24,17 @@
   ],
   "kas": {
     "saldo_terakhir": 2500000,
-    "transaksi": []
+    "transaksi": [
+      {
+        "id": 1,
+        "tanggal": "28 Juni 2026",
+        "jenis": "masuk",
+        "kategori": "Donasi",
+        "keterangan": "Sumbangan warga",
+        "jumlah": 75000,
+        "pencatat": "Wahyono",
+        "waktu_input": "2026-06-28T06:05:50.455Z"
+      }
+    ]
   }
 }
