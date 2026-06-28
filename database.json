@@ -96,6 +96,14 @@
         "kategori": "Donasi",
         "keterangan": "Gang 8",
         "jumlah": 100000
+      },
+      {
+        "id": 8,
+        "tanggal": "28 Juni 2026",
+        "jenis": "keluar",
+        "kategori": "Honor Pemateri",
+        "keterangan": "Honor kiyai",
+        "jumlah": 4000000
       }
     ]
   }
