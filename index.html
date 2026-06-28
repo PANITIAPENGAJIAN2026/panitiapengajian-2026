@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panitia Pengajian 2026 - Dusun pelemwulung Desa Pulorejo</title>
+  <title>Panitia Pengajian 2026 - Masjid Agung At-Taqwa Balikpapan</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
@@ -17,7 +17,6 @@
       overflow-x: hidden;
     }
 
-    /* ===== ANIMATED BACKGROUND ===== */
     .bg-animated {
       position: fixed;
       top: 0; left: 0;
@@ -25,34 +24,7 @@
       z-index: 0;
       background: linear-gradient(135deg, #0a0a1a 0%, #0d1b3e 50%, #0a0a1a 100%);
       overflow: hidden;
-    }
-
-    .bg-animated::before {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(29,78,216,0.15) 0%, transparent 70%);
-      top: -200px; left: -200px;
-      animation: float1 8s ease-in-out infinite;
-    }
-
-    .bg-animated::after {
-      content: '';
-      position: absolute;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
-      bottom: -200px; right: -200px;
-      animation: float2 10s ease-in-out infinite;
-    }
-
-    @keyframes float1 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(80px, 80px); }
-    }
-
-    @keyframes float2 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-80px, -80px); }
+      pointer-events: none;
     }
 
     .content-wrapper {
@@ -60,12 +32,10 @@
       z-index: 1;
     }
 
-    /* ===== HEADER ===== */
     header {
       text-align: center;
       padding: 50px 20px 30px;
       color: white;
-      position: relative;
     }
 
     .header-badge {
@@ -78,7 +48,6 @@
       font-size: 0.85em;
       letter-spacing: 2px;
       margin-bottom: 20px;
-      backdrop-filter: blur(10px);
     }
 
     header h1 {
@@ -87,10 +56,7 @@
       background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #a5b4fc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
       margin-bottom: 10px;
-      text-shadow: none;
-      line-height: 1.2;
     }
 
     header .subtitle {
@@ -106,7 +72,6 @@
       margin: 20px auto;
     }
 
-    /* ===== TAB NAVIGATION ===== */
     .tab-wrapper {
       display: flex;
       justify-content: center;
@@ -140,11 +105,7 @@
       display: inline-block;
     }
 
-    .tab-btn:hover {
-      color: white;
-      background: rgba(255,255,255,0.08);
-    }
-
+    .tab-btn:hover { color: white; background: rgba(255,255,255,0.08); }
     .tab-btn.active {
       background: linear-gradient(135deg, #1d4ed8, #7c3aed);
       color: white;
@@ -152,14 +113,12 @@
       box-shadow: 0 5px 20px rgba(124,58,237,0.4);
     }
 
-    /* ===== CONTAINER ===== */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px 40px;
     }
 
-    /* ===== CARD ===== */
     .card {
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.08);
@@ -167,22 +126,6 @@
       padding: 30px;
       margin-bottom: 25px;
       backdrop-filter: blur(20px);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     }
 
     .card-title {
@@ -195,9 +138,8 @@
       gap: 12px;
     }
 
-    .card-title .title-icon {
-      width: 42px;
-      height: 42px;
+    .title-icon {
+      width: 42px; height: 42px;
       background: linear-gradient(135deg, #1d4ed8, #7c3aed);
       border-radius: 12px;
       display: flex;
@@ -207,56 +149,10 @@
       box-shadow: 0 5px 15px rgba(124,58,237,0.4);
     }
 
-    /* ===== TAB CONTENT ===== */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* ===== WELCOME BANNER ===== */
-    .welcome-banner {
-      background: linear-gradient(135deg, rgba(29,78,216,0.3) 0%, rgba(124,58,237,0.3) 100%);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      padding: 40px;
-      text-align: center;
-      margin-bottom: 25px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .welcome-banner::before {
-      content: '☪';
-      position: absolute;
-      font-size: 15em;
-      color: rgba(255,255,255,0.02);
-      top: -50px;
-      right: -30px;
-      font-style: normal;
-    }
-
-    .welcome-banner h2 {
-      color: white;
-      font-size: 1.8em;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .welcome-banner p {
-      color: rgba(255,255,255,0.7);
-      font-size: 1em;
-    }
-
-    .welcome-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-      color: #0a0a1a;
-      padding: 8px 25px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 0.9em;
-      margin-bottom: 15px;
-    }
-
-    /* ===== INFO GRID ===== */
+    /* Info Grid */
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -269,19 +165,9 @@
       padding: 25px;
       border-radius: 18px;
       text-align: center;
-      transition: all 0.3s;
     }
 
-    .info-item:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.15);
-    }
-
-    .info-item .icon {
-      font-size: 2.5em;
-      margin-bottom: 12px;
-    }
-
+    .info-item .icon { font-size: 2.5em; margin-bottom: 12px; }
     .info-item .label {
       color: rgba(255,255,255,0.5);
       font-size: 0.75em;
@@ -289,25 +175,18 @@
       letter-spacing: 2px;
       margin-bottom: 8px;
     }
+    .info-item .value { color: white; font-size: 1em; font-weight: 600; }
 
-    .info-item .value {
-      color: white;
-      font-size: 1em;
-      font-weight: 600;
-    }
-
-    /* ===== TABLE STYLES ===== */
+    /* Table Styles */
     .table-wrapper { overflow-x: auto; }
-
+    
     table {
       width: 100%;
       border-collapse: collapse;
     }
 
-    thead tr {
-      background: rgba(255,255,255,0.05);
-    }
-
+    thead tr { background: rgba(255,255,255,0.05); }
+    
     th {
       padding: 15px 18px;
       text-align: left;
@@ -323,10 +202,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.04);
       transition: background 0.2s;
     }
-
-    tbody tr:hover {
-      background: rgba(255,255,255,0.04);
-    }
+    tbody tr:hover { background: rgba(255,255,255,0.04); }
 
     td {
       padding: 15px 18px;
@@ -334,17 +210,56 @@
       font-size: 0.95em;
     }
 
-    .pertemuan-badge {
-      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-      color: white;
-      padding: 5px 14px;
-      border-radius: 20px;
+    /* Donatur Specific */
+    .nominal {
+      color: #fbbf24;
       font-weight: 700;
-      font-size: 0.85em;
-      box-shadow: 0 3px 10px rgba(124,58,237,0.3);
+      font-size: 1.05em;
     }
 
-    /* ===== COMMITTEE ===== */
+    .alamat-cell {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9em;
+      max-width: 300px;
+      line-height: 1.4;
+    }
+
+    .total-box {
+      background: linear-gradient(135deg, rgba(251,191,36,0.15), rgba(251,191,36,0.05));
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 16px;
+      padding: 25px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .total-label { color: rgba(255,255,255,0.6); font-size: 0.9em; }
+    .total-value { 
+      color: #fbbf24; 
+      font-size: 2em; 
+      font-weight: 800; 
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95em;
+    }
+
+    /* Committee */
     .committee-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -357,425 +272,122 @@
       padding: 20px;
       border-radius: 15px;
       text-align: center;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
     }
+    .committee-item .name { font-weight: 600; color: white; margin-bottom: 5px; }
+    .committee-item .role { color: rgba(255,255,255,0.5); font-size: 0.9em; }
 
-    .committee-item::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #1d4ed8, #7c3aed);
-    }
-
-    .committee-item:hover {
-      background: rgba(255,255,255,0.07);
-      transform: translateY(-3px);
-    }
-
-    .committee-item .avatar {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4em;
-      margin: 0 auto 12px;
-    }
-
-    .committee-item .name {
-      font-weight: 600;
-      color: white;
-      margin-bottom: 5px;
-    }
-
-    .committee-item .role {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.85em;
-    }
-
-    /* ===== KAS - SUMMARY CARDS ===== */
-    .kas-summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
+    /* Kas Styles (simplified) */
     .summary-card {
-      border-radius: 20px;
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s;
-    }
-
-    .summary-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .summary-card.saldo {
-      background: linear-gradient(135deg, #065f46 0%, #047857 50%, #059669 100%);
-      box-shadow: 0 15px 40px rgba(5,150,105,0.3);
-    }
-
-    .summary-card.masuk {
-      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%);
-      box-shadow: 0 15px 40px rgba(29,78,216,0.3);
-    }
-
-    .summary-card.keluar {
-      background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #dc2626 100%);
-      box-shadow: 0 15px 40px rgba(220,38,38,0.3);
-    }
-
-    .summary-card.pertemuan {
-      background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 50%, #7c3aed 100%);
-      box-shadow: 0 15px 40px rgba(124,58,237,0.3);
-    }
-
-    .summary-card::before {
-      content: '';
-      position: absolute;
-      top: -30px; right: -30px;
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-    }
-
-    .summary-card::after {
-      content: '';
-      position: absolute;
-      bottom: -50px; left: -20px;
-      width: 150px; height: 150px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-    }
-
-    .summary-card .s-icon {
-      font-size: 2.5em;
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .summary-card .s-label {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.8em;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .summary-card .s-amount {
-      color: white;
-      font-size: 1.6em;
-      font-weight: 800;
-      position: relative;
-      z-index: 1;
-      line-height: 1.2;
-    }
-
-    .summary-card .s-sub {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.8em;
-      margin-top: 8px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ===== LAPORAN SECTION ===== */
-    .laporan-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .filter-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-select {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: white;
-      padding: 8px 15px;
-      border-radius: 10px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9em;
-      cursor: pointer;
-      outline: none;
-    }
-
-    .filter-select option {
-      background: #1a1a2e;
-      color: white;
-    }
-
-    /* ===== CHART BAR ===== */
-    .chart-container {
-      margin: 20px 0;
-    }
-
-    .chart-bar-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 12px;
-    }
-
-    .chart-bar-label {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.85em;
-      width: 120px;
-      flex-shrink: 0;
-      text-align: right;
-    }
-
-    .chart-bar-track {
-      flex: 1;
-      height: 12px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .chart-bar-fill {
-      height: 100%;
-      border-radius: 10px;
-      transition: width 1s ease;
-    }
-
-    .chart-bar-fill.masuk {
-      background: linear-gradient(90deg, #1d4ed8, #3b82f6);
-    }
-
-    .chart-bar-fill.keluar {
-      background: linear-gradient(90deg, #991b1b, #ef4444);
-    }
-
-    .chart-bar-value {
-      color: white;
-      font-size: 0.85em;
-      font-weight: 600;
-      width: 130px;
-      flex-shrink: 0;
-    }
-
-    /* ===== TRANSAKSI TABLE ===== */
-    .transaksi-masuk { color: #34d399; font-weight: 700; }
-    .transaksi-keluar { color: #f87171; font-weight: 700; }
-
-    .badge-jenis {
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.78em;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .badge-masuk {
-      background: rgba(52,211,153,0.15);
-      color: #34d399;
-      border: 1px solid rgba(52,211,153,0.3);
-    }
-
-    .badge-keluar {
-      background: rgba(248,113,113,0.15);
-      color: #f87171;
-      border: 1px solid rgba(248,113,113,0.3);
-    }
-
-    .kategori-tag {
-      background: rgba(165,180,252,0.1);
-      color: #a5b4fc;
-      padding: 4px 12px;
-      border-radius: 15px;
-      font-size: 0.82em;
-      border: 1px solid rgba(165,180,252,0.2);
-    }
-
-    /* ===== RINGKASAN SECTION ===== */
-    .ringkasan-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      margin-bottom: 25px;
-    }
-
-    .ringkasan-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 25px;
-    }
-
-    .ringkasan-card h3 {
-      color: white;
-      font-size: 1.05em;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .kategori-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-
-    .kategori-row:last-child { border-bottom: none; }
-
-    .kategori-row .k-name {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.9em;
-    }
-
-    .kategori-row .k-amount {
-      font-weight: 600;
-      font-size: 0.9em;
-    }
-
-    .k-amount.masuk { color: #34d399; }
-    .k-amount.keluar { color: #f87171; }
-
-    /* ===== SALDO PROGRESS ===== */
-    .saldo-progress {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 25px;
-      margin-bottom: 25px;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
     }
+    .summary-card .s-icon { font-size: 2em; margin-bottom: 10px; }
+    .summary-card .s-label { color: rgba(255,255,255,0.5); font-size: 0.8em; }
+    .summary-card .s-amount { color: white; font-size: 1.3em; font-weight: 700; margin-top: 5px; }
 
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .progress-label span {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.85em;
-    }
-
-    .progress-track {
-      height: 20px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .progress-masuk {
-      height: 100%;
-      background: linear-gradient(90deg, #1d4ed8, #3b82f6);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75em;
-      color: white;
-      font-weight: 600;
-      transition: width 1s ease;
-    }
-
-    /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 30px;
       color: rgba(255,255,255,0.3);
       font-size: 0.85em;
-      position: relative;
-      z-index: 1;
     }
 
-    /* ===== LOADING ===== */
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: rgba(255,255,255,0.4);
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        font-family: 'Times New Roman', serif;
+      }
+
+      .bg-animated, .tab-wrapper, .btn-print, footer { display: none !important; }
+
+      .content-wrapper {
+        position: static;
+        z-index: auto;
+      }
+
+      header {
+        padding: 20px !important;
+        color: black !important;
+        border-bottom: 2px solid #000;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+        color: black !important;
+        font-size: 24pt !important;
+        font-weight: bold !important;
+      }
+
+      .header-badge, .subtitle { color: #333 !important; border: 1px solid #333; }
+
+      .container { max-width: 100%; padding: 0 20px; }
+
+      .card {
+        background: white !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+
+      .card-title {
+        color: black !important;
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+        font-size: 14pt;
+      }
+
+      .title-icon { display: none !important; }
+
+      table {
+        width: 100%;
+        border: 1px solid #333;
+      }
+
+      th {
+        background: #f0f0f0 !important;
+        color: black !important;
+        border: 1px solid #333;
+        font-weight: bold;
+        padding: 10px;
+      }
+
+      td {
+        color: black !important;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      .nominal { color: #000 !important; font-weight: bold; }
+      .alamat-cell { color: #333 !important; max-width: none; }
+
+      .total-box {
+        background: #f9f9f9 !important;
+        border: 2px solid #333 !important;
+        color: black !important;
+      }
+      .total-value { color: black !important; }
+
+      /* Page break handling */
+      .page-break { page-break-before: always; }
+
+      /* Ensure donatur table is first if printing donatur page */
+      #tab-donatur { display: block !important; }
+      #tab-home, #tab-panitia, #tab-kas { display: none !important; }
     }
 
-    .loading::after {
-      content: '';
-      display: inline-block;
-      width: 20px; height: 20px;
-      border: 3px solid rgba(255,255,255,0.1);
-      border-top-color: #7c3aed;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-left: 10px;
-      vertical-align: middle;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ===== RESPONSIVE ===== */
+    .loading { text-align: center; padding: 40px; color: rgba(255,255,255,0.4); }
+    
     @media (max-width: 768px) {
       header h1 { font-size: 2em; }
-      .ringkasan-grid { grid-template-columns: 1fr; }
-      .card { padding: 20px; }
-      th, td { padding: 10px 12px; font-size: 0.85em; }
-      .summary-card .s-amount { font-size: 1.2em; }
+      .total-value { font-size: 1.5em; }
     }
-
-    /* ===== DIVIDER ===== */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      margin: 20px 0;
-    }
-
-    /* ===== PERIODE BADGE ===== */
-    .periode-info {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(251,191,36,0.1);
-      border: 1px solid rgba(251,191,36,0.2);
-      color: #fbbf24;
-      padding: 6px 15px;
-      border-radius: 20px;
-      font-size: 0.82em;
-      font-weight: 500;
-    }
-
-    /* ===== TREND INDICATOR ===== */
-    .trend {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.8em;
-      padding: 3px 8px;
-      border-radius: 10px;
-    }
-
-    .trend.up { background: rgba(52,211,153,0.1); color: #34d399; }
-    .trend.down { background: rgba(248,113,113,0.1); color: #f87171; }
-
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      color: rgba(255,255,255,0.3);
-    }
-
-    .empty-state .empty-icon { font-size: 3em; margin-bottom: 15px; }
   </style>
 </head>
 <body>
@@ -783,576 +395,317 @@
 
   <div class="content-wrapper">
     <header>
-      <div class="header-badge">✨ SISTEM INFORMASI PENGAJIAN ✨</div>
-      <h1>Panitia Pengajian 2026</h1>
+      <div class="header-badge">✨ PANITIA PENGAJIAN 2026 ✨</div>
+      <h1>Daftar Donatur & Laporan Keuangan</h1>
       <div class="gold-line"></div>
-      <p class="subtitle">Masjid Darul Muhlisin Pelemwulung Pulorejo</p>
+      <p class="subtitle">Masjid Agung At-Taqwa Balikpapan</p>
     </header>
 
-    <!-- TAB NAVIGATION -->
     <div class="tab-wrapper">
       <div class="tab-nav">
         <button class="tab-btn active" onclick="bukaTab('home', this)">🏠 Beranda</button>
-        <button class="tab-btn" onclick="bukaTab('jadwal', this)">📅 Acara</button>
+        <button class="tab-btn" onclick="bukaTab('donatur', this)">🤝 Donatur</button>
         <button class="tab-btn" onclick="bukaTab('panitia', this)">👥 Panitia</button>
-        <button class="tab-btn" onclick="bukaTab('laporan', this)">📊 Laporan Kas</button>
+        <button class="tab-btn" onclick="bukaTab('kas', this)">💰 Laporan Kas</button>
         <a href="admin.html" class="tab-btn">🔐 Admin</a>
       </div>
     </div>
 
     <div class="container">
 
-      <!-- ===== TAB HOME ===== -->
+      <!-- TAB HOME -->
       <div id="tab-home" class="tab-content active">
-        <div class="welcome-banner">
-          <div class="welcome-badge">🌟 SELAMAT DATANG 🌟</div>
-          <h2>Sistem Informasi Pengajian</h2>
-          <p id="tahun-info">Masjid Darul Muhlisin · Tahun 2026</p>
-          <div class="gold-line"></div>
-          <p>📚 Pengajian Peringatan Maulid Nabi Muhammad SAW Tahun 2026</p>
-        </div>
-
         <div class="card">
-          <div class="card-title">
-            <div class="title-icon">📌</div>
-            Informasi Pengajian
-          </div>
+          <div class="card-title"><div class="title-icon">📌</div> Informasi Pengajian</div>
           <div class="info-grid" id="info-container">
-            <div class="loading">Memuat data</div>
+            <div class="loading">Memuat...</div>
           </div>
         </div>
-      </div>
 
-      <!-- ===== TAB JADWAL ===== -->
-      <div id="tab-jadwal" class="tab-content">
         <div class="card">
-          <div class="card-title">
-            <div class="title-icon">📅</div>
-            Jadwal Pengajian 2026
-          </div>
-          <div id="jadwal-container">
-            <div class="loading">Memuat jadwal</div>
+          <div class="card-title"><div class="title-icon">📊</div> Ringkasan Donasi</div>
+          <div id="ringkasan-donasi">
+            <div class="loading">Memuat data donatur...</div>
           </div>
         </div>
       </div>
 
-      <!-- ===== TAB PANITIA ===== -->
+      <!-- TAB DONATUR (Mengganti Jadwal) -->
+      <div id="tab-donatur" class="tab-content">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+            <div class="card-title" style="margin-bottom:0;">
+              <div class="title-icon">🤝</div>
+              Daftar Donatur
+            </div>
+            <button class="btn-print" onclick="window.print()">🖨️ Cetak Laporan Donatur</button>
+          </div>
+
+          <div class="table-wrapper">
+            <table id="tabel-donatur">
+              <thead>
+                <tr>
+                  <th style="width:5%">No</th>
+                  <th style="width:20%">Nama Donatur</th>
+                  <th style="width:35%">Alamat</th>
+                  <th style="width:20%">Nominal</th>
+                  <th style="width:20%">Tanggal</th>
+                </tr>
+              </thead>
+              <tbody id="donatur-body">
+                <tr><td colspan="5" style="text-align:center; padding:40px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="total-box" id="total-donasi-box" style="display:none;">
+            <div>
+              <div class="total-label">TOTAL DANA TERKUMPUL</div>
+              <div class="total-value" id="total-donasi">Rp 0</div>
+            </div>
+            <div style="text-align:right; color:rgba(255,255,255,0.6); font-size:0.9em;">
+              <div>Jumlah Donatur: <strong id="jumlah-donatur" style="color:white;">0</strong> orang</div>
+              <div style="margin-top:5px; font-size:0.8em;">Dicetak: <span id="tanggal-cetak"></span></div>
+            </div>
+          </div>
+
+          <div style="margin-top:30px; padding:20px; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid rgba(255,255,255,0.08);">
+            <h4 style="color:#fbbf24; margin-bottom:10px; font-size:0.95em;">📝 Keterangan:</h4>
+            <p style="color:rgba(255,255,255,0.6); font-size:0.85em; line-height:1.6;">
+              Daftar di atas merupakan donatur yang telah berkontribusi dalam kegiatan Pengajian 2026. 
+              Semoga Allah SWT membalas kebaikan para donatur dengan berlipat ganda. Aamiin.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB PANITIA -->
       <div id="tab-panitia" class="tab-content">
         <div class="card">
-          <div class="card-title">
-            <div class="title-icon">👥</div>
-            Susunan Panitia Pengajian 2026
-          </div>
+          <div class="card-title"><div class="title-icon">👥</div> Susunan Panitia</div>
           <div class="committee-grid" id="panitia-container">
-            <div class="loading">Memuat data</div>
+            <div class="loading">Memuat data...</div>
           </div>
         </div>
       </div>
 
-      <!-- ===== TAB LAPORAN KAS ===== -->
-      <div id="tab-laporan" class="tab-content">
-
-        <!-- Summary Cards -->
-        <div class="kas-summary" id="kas-summary">
-          <div class="loading">Memuat data kas</div>
-        </div>
-
-        <!-- Progress Bar Pemasukan vs Pengeluaran -->
-        <div class="saldo-progress" id="progress-container"></div>
-
-        <!-- Filter & Header -->
+      <!-- TAB KAS (LAPORAN) -->
+      <div id="tab-kas" class="tab-content">
         <div class="card">
-          <div class="laporan-header">
-            <div class="card-title" style="margin-bottom: 0;">
-              <div class="title-icon">📊</div>
-              Ringkasan Per Kategori
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+            <div class="card-title" style="margin-bottom:0;">
+              <div class="title-icon">💰</div>
+              Laporan Keuangan
             </div>
-            <div class="filter-group">
-              <select class="filter-select" id="filterBulan" onchange="filterTransaksi()">
-                <option value="semua">Semua Bulan</option>
-                <option value="0">Januari</option>
-                <option value="1">Februari</option>
-                <option value="2">Maret</option>
-                <option value="3">April</option>
-                <option value="4">Mei</option>
-                <option value="5">Juni</option>
-                <option value="6">Juli</option>
-                <option value="7">Agustus</option>
-                <option value="8">September</option>
-                <option value="9">Oktober</option>
-                <option value="10">November</option>
-                <option value="11">Desember</option>
-              </select>
-              <select class="filter-select" id="filterJenis" onchange="filterTransaksi()">
-                <option value="semua">Semua Jenis</option>
-                <option value="masuk">Pemasukan</option>
-                <option value="keluar">Pengeluaran</option>
-              </select>
+            <button class="btn-print" onclick="window.print()">🖨️ Cetak Laporan</button>
+          </div>
+
+          <div class="info-grid" style="margin-bottom:25px;">
+            <div class="summary-card">
+              <div class="s-icon">💰</div>
+              <div class="s-label">Saldo Kas</div>
+              <div class="s-amount" id="kas-saldo">Rp 0</div>
+            </div>
+            <div class="summary-card">
+              <div class="s-icon">📥</div>
+              <div class="s-label">Total Masuk</div>
+              <div class="s-amount" id="kas-masuk" style="color:#34d399;">Rp 0</div>
+            </div>
+            <div class="summary-card">
+              <div class="s-icon">📤</div>
+              <div class="s-label">Total Keluar</div>
+              <div class="s-amount" id="kas-keluar" style="color:#f87171;">Rp 0</div>
             </div>
           </div>
 
-          <div class="divider"></div>
-
-          <!-- Ringkasan Kategori -->
-          <div class="ringkasan-grid" id="ringkasan-grid">
-            <div class="loading">Memuat ringkasan</div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Jenis</th>
+                  <th>Kategori</th>
+                  <th>Keterangan</th>
+                  <th style="text-align:right;">Jumlah</th>
+                </tr>
+              </thead>
+              <tbody id="kas-body">
+                <tr><td colspan="5" style="text-align:center; padding:40px;">Memuat data...</td></tr>
+              </tbody>
+            </table>
           </div>
-
-          <!-- Chart -->
-          <div class="card-title" style="margin-top: 10px;">
-            <div class="title-icon">📈</div>
-            Grafik Kategori Pengeluaran
-          </div>
-          <div id="chart-container" class="chart-container"></div>
         </div>
-
-        <!-- Tabel Transaksi Lengkap -->
-        <div class="card">
-          <div class="laporan-header">
-            <div class="card-title" style="margin-bottom: 0;">
-              <div class="title-icon">📋</div>
-              Daftar Transaksi Lengkap
-            </div>
-            <div id="total-filter-info" class="periode-info">
-              📊 Semua transaksi
-            </div>
-          </div>
-          <div class="divider"></div>
-          <div id="transaksi-container">
-            <div class="loading">Memuat transaksi</div>
-          </div>
-
-          <!-- Total Tabel -->
-          <div class="divider"></div>
-          <div id="total-transaksi" style="text-align: right; padding: 10px 18px;"></div>
-        </div>
-
       </div>
-      <!-- END TAB LAPORAN -->
 
-    </div><!-- end container -->
+    </div>
 
     <footer>
-      <p>© <span id="footer-year"></span> Panitia Pengajian 2026 · Masjid Darul Muhlisin Pelemwulung</p>
-      <p style="margin-top: 5px;">support by : Wahyono Web Developt</p>
+      <p>© 2026 Panitia Pengajian · Masjid Agung At-Taqwa Balikpapan</p>
+      <p style="margin-top:5px; font-size:0.8em;">Dokumen ini dicetak dari sistem informasi digital</p>
     </footer>
   </div>
 
   <script>
-    // ===== DATA GLOBAL =====
-    let dbGlobal = null
+    let DB = null;
 
-    // ===== TAB =====
-    function bukaTab(tabName, el) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'))
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
-      document.getElementById('tab-' + tabName).classList.add('active')
-      if (el) el.classList.add('active')
-    }
-
-    // ===== FORMAT =====
-    function formatRupiah(angka) {
-      if (!angka && angka !== 0) return 'Rp 0'
-      return 'Rp ' + Number(angka).toLocaleString('id-ID')
-    }
-
-    function tanggalKeDate(str) {
-      const bulanMap = {
-        'Januari': 0, 'Februari': 1, 'Maret': 2, 'April': 3,
-        'Mei': 4, 'Juni': 5, 'Juli': 6, 'Agustus': 7,
-        'September': 8, 'Oktober': 9, 'November': 10, 'Desember': 11
-      }
-      const parts = str.split(' ')
-      if (parts.length === 3) {
-        return new Date(parseInt(parts[2]), bulanMap[parts[1]] ?? 0, parseInt(parts[0]))
-      }
-      return new Date()
-    }
-
-    // ===== LOAD DATABASE =====
     async function muatDatabase() {
       try {
-        const res = await fetch('./database.json?t=' + Date.now())
-        if (!res.ok) throw new Error('Gagal mengambil data')
-        dbGlobal = await res.json()
-        renderSemua()
+        const res = await fetch('./database.json?t=' + Date.now());
+        if (!res.ok) throw new Error('Gagal mengambil data');
+        DB = await res.json();
+        renderSemua();
       } catch (err) {
-        console.error(err)
+        console.error(err);
         document.querySelectorAll('.loading').forEach(el => {
-          el.textContent = '⚠️ Gagal memuat data. Refresh halaman.'
-        })
+          el.textContent = '⚠️ Gagal memuat data';
+        });
       }
+    }
+
+    function formatRp(n) {
+      return 'Rp ' + Number(n || 0).toLocaleString('id-ID') + ',-';
     }
 
     function renderSemua() {
-      renderInfo(dbGlobal.pengaturan)
-      renderJadwal(dbGlobal.jadwal)
-      renderPanitia(dbGlobal.panitia)
-      renderLaporan(dbGlobal.kas)
-      document.getElementById('footer-year').textContent = new Date().getFullYear()
-    }
-
-    // ===== RENDER INFO =====
-    function renderInfo(p) {
-      document.getElementById('tahun-info').textContent =
-        `${p.tempat} · Tahun ${p.tahun}`
-
+      if (!DB) return;
+      
+      // Info
+      const p = DB.pengaturan || {};
       document.getElementById('info-container').innerHTML = `
         <div class="info-item">
           <div class="icon">📅</div>
-          <div class="label">Tahun Program</div>
-          <div class="value">${p.tahun}</div>
+          <div class="label">Tahun</div>
+          <div class="value">${p.tahun || '-'}</div>
         </div>
         <div class="info-item">
           <div class="icon">🏛️</div>
           <div class="label">Tempat</div>
-          <div class="value">${p.tempat}</div>
+          <div class="value">${p.tempat || '-'}</div>
         </div>
         <div class="info-item">
           <div class="icon">⏰</div>
           <div class="label">Waktu</div>
-          <div class="value">${p.waktu}</div>
+          <div class="value">${p.waktu || '-'}</div>
         </div>
-      `
+        <div class="info-item">
+          <div class="icon">📖</div>
+          <div class="label">Kitab</div>
+          <div class="value">${p.kitab || '-'}</div>
+        </div>
+      `;
+
+      // Donatur
+      renderDonatur();
+      
+      // Panitia
+      const panitia = DB.panitia || [];
+      document.getElementById('panitia-container').innerHTML = panitia.map(p => `
+        <div class="committee-item">
+          <div class="name">${p.nama}</div>
+          <div class="role">${p.bagian}</div>
+        </div>
+      `).join('') || '<p style="color:rgba(255,255,255,0.3); text-align:center; grid-column:1/-1;">Belum ada data</p>';
+
+      // Kas
+      renderKas();
     }
 
-    // ===== RENDER JADWAL =====
-    function renderJadwal(jadwal) {
-      if (!jadwal || jadwal.length === 0) {
-        document.getElementById('jadwal-container').innerHTML =
-          '<div class="empty-state"><div class="empty-icon">📭</div><p>Belum ada jadwal</p></div>'
-        return
+    function renderDonatur() {
+      const donatur = DB.donatur || [];
+      const tbody = document.getElementById('donatur-body');
+      
+      if (donatur.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:rgba(255,255,255,0.4);">Belum ada data donatur</td></tr>';
+        document.getElementById('ringkasan-donasi').innerHTML = '<p style="color:rgba(255,255,255,0.4);">Belum ada donasi masuk</p>';
+        return;
       }
 
-      let html = `
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Acara</th>
-                <th>Tempat</th>
-              </tr>
-            </thead>
-            <tbody>
-      `
-      jadwal.forEach(item => {
-        html += `
+      // Sort by date (newest first) or nominal (highest first)
+      const sorted = [...donatur].sort((a, b) => b.nominal - a.nominal);
+      
+      let total = 0;
+      tbody.innerHTML = sorted.map((d, i) => {
+        total += d.nominal;
+        return `
           <tr>
-            <td><span class="pertemuan-badge">${item.pertemuan}</span></td>
-            <td>${item.tanggal}</td>
-            <td>${item.pemateri}</td>
-            <td>${item.tema}</td>
+            <td style="color:rgba(255,255,255,0.4);">${i + 1}</td>
+            <td style="font-weight:600; color:white;">${d.nama}</td>
+            <td class="alamat-cell">${d.alamat || '-'}</td>
+            <td class="nominal">${formatRp(d.nominal)}</td>
+            <td style="color:rgba(255,255,255,0.6); font-size:0.9em;">${d.tanggal}</td>
           </tr>
-        `
-      })
-      html += '</tbody></table></div>'
-      document.getElementById('jadwal-container').innerHTML = html
-    }
+        `;
+      }).join('');
 
-    // ===== RENDER PANITIA =====
-    function renderPanitia(panitia) {
-      if (!panitia || panitia.length === 0) {
-        document.getElementById('panitia-container').innerHTML =
-          '<div class="empty-state"><div class="empty-icon">👤</div><p>Belum ada data panitia</p></div>'
-        return
-      }
+      // Total box
+      document.getElementById('total-donasi').textContent = formatRp(total);
+      document.getElementById('jumlah-donatur').textContent = donatur.length;
+      document.getElementById('tanggal-cetak').textContent = new Date().toLocaleDateString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+      document.getElementById('total-donasi-box').style.display = 'flex';
 
-      const avatarEmoji = ['👨‍💼','👩‍💼','🧑‍💼','👨‍🏫','👩‍🏫','🧑‍🏫']
-      let html = ''
-      panitia.forEach((item, i) => {
-        html += `
-          <div class="committee-item">
-            <div class="avatar">${avatarEmoji[i % avatarEmoji.length]}</div>
-            <div class="name">${item.nama}</div>
-            <div class="role">${item.bagian}</div>
+      // Ringkasan di home
+      document.getElementById('ringkasan-donasi').innerHTML = `
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px;">
+          <div style="background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.2); padding:20px; border-radius:12px; text-align:center;">
+            <div style="color:#fbbf24; font-size:2em; font-weight:800; margin-bottom:5px;">${formatRp(total)}</div>
+            <div style="color:rgba(255,255,255,0.6); font-size:0.85em;">Total Donasi Terkumpul</div>
           </div>
-        `
-      })
-      document.getElementById('panitia-container').innerHTML = html
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding:20px; border-radius:12px; text-align:center;">
+            <div style="color:white; font-size:2em; font-weight:800; margin-bottom:5px;">${donatur.length}</div>
+            <div style="color:rgba(255,255,255,0.6); font-size:0.85em;">Jumlah Donatur</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding:20px; border-radius:12px; text-align:center;">
+            <div style="color:white; font-size:2em; font-weight:800; margin-bottom:5px;">${formatRp(Math.round(total / donatur.length))}</div>
+            <div style="color:rgba(255,255,255,0.6); font-size:0.85em;">Rata-rata Donasi</div>
+          </div>
+        </div>
+      `;
     }
 
-    // ===== RENDER LAPORAN KAS =====
-    function renderLaporan(kas) {
-      if (!kas) {
-        document.getElementById('kas-summary').innerHTML =
-          '<div class="empty-state"><p>Data kas belum tersedia</p></div>'
-        return
-      }
-
-      const transaksi = kas.transaksi || []
-      let totalMasuk = 0, totalKeluar = 0
-
+    function renderKas() {
+      const kas = DB.kas || {};
+      const transaksi = kas.transaksi || [];
+      
+      let masuk = 0, keluar = 0;
       transaksi.forEach(t => {
-        if (t.jenis === 'masuk') totalMasuk += t.jumlah
-        else totalKeluar += t.jumlah
-      })
+        if (t.jenis === 'masuk') masuk += t.jumlah;
+        else keluar += t.jumlah;
+      });
+      
+      const saldo = (kas.saldo_terakhir || 0) + masuk - keluar;
+      
+      document.getElementById('kas-saldo').textContent = formatRp(saldo);
+      document.getElementById('kas-masuk').textContent = formatRp(masuk);
+      document.getElementById('kas-keluar').textContent = formatRp(keluar);
 
-      const saldoAkhir = kas.saldo_terakhir + totalMasuk - totalKeluar
-      const totalTransaksi = transaksi.length
-
-      // Summary Cards
-      document.getElementById('kas-summary').innerHTML = `
-        <div class="summary-card saldo">
-          <div class="s-icon">💰</div>
-          <div class="s-label">Saldo Kas</div>
-          <div class="s-amount">${formatRupiah(saldoAkhir)}</div>
-          <div class="s-sub">Saldo awal: ${formatRupiah(kas.saldo_terakhir)}</div>
-        </div>
-        <div class="summary-card masuk">
-          <div class="s-icon">📥</div>
-          <div class="s-label">Total Pemasukan</div>
-          <div class="s-amount">${formatRupiah(totalMasuk)}</div>
-          <div class="s-sub">${transaksi.filter(t=>t.jenis==='masuk').length} transaksi masuk</div>
-        </div>
-        <div class="summary-card keluar">
-          <div class="s-icon">📤</div>
-          <div class="s-label">Total Pengeluaran</div>
-          <div class="s-amount">${formatRupiah(totalKeluar)}</div>
-          <div class="s-sub">${transaksi.filter(t=>t.jenis==='keluar').length} transaksi keluar</div>
-        </div>
-        <div class="summary-card pertemuan">
-          <div class="s-icon">📋</div>
-          <div class="s-label">Total Transaksi</div>
-          <div class="s-amount">${totalTransaksi}</div>
-          <div class="s-sub">Semua transaksi tercatat</div>
-        </div>
-      `
-
-      // Progress Bar
-      const pctMasuk = totalMasuk + totalKeluar > 0
-        ? Math.round((totalMasuk / (totalMasuk + totalKeluar)) * 100) : 0
-
-      document.getElementById('progress-container').innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-          <span style="color:white; font-weight:600; font-size:1em;">⚖️ Komposisi Keuangan</span>
-          <span class="periode-info">Pemasukan ${pctMasuk}% · Pengeluaran ${100 - pctMasuk}%</span>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
-          <div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-              <span style="color:#60a5fa; font-size:0.85em;">📥 Pemasukan</span>
-              <span style="color:white; font-size:0.85em; font-weight:600;">${formatRupiah(totalMasuk)}</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-masuk" style="width:${pctMasuk}%; background: linear-gradient(90deg, #1d4ed8, #60a5fa);">
-                ${pctMasuk > 10 ? pctMasuk + '%' : ''}
-              </div>
-            </div>
-          </div>
-          <div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-              <span style="color:#f87171; font-size:0.85em;">📤 Pengeluaran</span>
-              <span style="color:white; font-size:0.85em; font-weight:600;">${formatRupiah(totalKeluar)}</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-masuk" style="width:${100-pctMasuk}%; background: linear-gradient(90deg, #991b1b, #f87171);">
-                ${(100-pctMasuk) > 10 ? (100-pctMasuk) + '%' : ''}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex; justify-content:space-between; color:rgba(255,255,255,0.5); font-size:0.82em;">
-          <span>Saldo Awal: ${formatRupiah(kas.saldo_terakhir)}</span>
-          <span style="color:${saldoAkhir >= 0 ? '#34d399' : '#f87171'}; font-weight:700;">
-            Saldo Akhir: ${formatRupiah(saldoAkhir)}
-          </span>
-        </div>
-      `
-
-      // Render dengan filter default
-      renderRingkasanKategori(transaksi)
-      renderChart(transaksi)
-      renderTabelTransaksi(transaksi)
-    }
-
-    // ===== RINGKASAN PER KATEGORI =====
-    function renderRingkasanKategori(transaksi) {
-      const kategoriMasuk = {}
-      const kategoriKeluar = {}
-
-      transaksi.forEach(t => {
-        if (t.jenis === 'masuk') {
-          kategoriMasuk[t.kategori] = (kategoriMasuk[t.kategori] || 0) + t.jumlah
-        } else {
-          kategoriKeluar[t.kategori] = (kategoriKeluar[t.kategori] || 0) + t.jumlah
-        }
-      })
-
-      let htmlMasuk = ''
-      let totalM = 0
-      Object.entries(kategoriMasuk)
-        .sort((a, b) => b[1] - a[1])
-        .forEach(([k, v]) => {
-          totalM += v
-          htmlMasuk += `
-            <div class="kategori-row">
-              <span class="k-name">💰 ${k}</span>
-              <span class="k-amount masuk">${formatRupiah(v)}</span>
-            </div>
-          `
-        })
-
-      let htmlKeluar = ''
-      let totalK = 0
-      Object.entries(kategoriKeluar)
-        .sort((a, b) => b[1] - a[1])
-        .forEach(([k, v]) => {
-          totalK += v
-          htmlKeluar += `
-            <div class="kategori-row">
-              <span class="k-name">💸 ${k}</span>
-              <span class="k-amount keluar">${formatRupiah(v)}</span>
-            </div>
-          `
-        })
-
-      document.getElementById('ringkasan-grid').innerHTML = `
-        <div class="ringkasan-card">
-          <h3>📥 Pemasukan per Kategori</h3>
-          ${htmlMasuk || '<p style="color:rgba(255,255,255,0.3)">Tidak ada data</p>'}
-          <div class="divider"></div>
-          <div style="display:flex; justify-content:space-between;">
-            <span style="color:rgba(255,255,255,0.5); font-size:0.85em;">Total Pemasukan</span>
-            <span style="color:#34d399; font-weight:700;">${formatRupiah(totalM)}</span>
-          </div>
-        </div>
-        <div class="ringkasan-card">
-          <h3>📤 Pengeluaran per Kategori</h3>
-          ${htmlKeluar || '<p style="color:rgba(255,255,255,0.3)">Tidak ada data</p>'}
-          <div class="divider"></div>
-          <div style="display:flex; justify-content:space-between;">
-            <span style="color:rgba(255,255,255,0.5); font-size:0.85em;">Total Pengeluaran</span>
-            <span style="color:#f87171; font-weight:700;">${formatRupiah(totalK)}</span>
-          </div>
-        </div>
-      `
-    }
-
-    // ===== CHART =====
-    function renderChart(transaksi) {
-      const kategoriKeluar = {}
-      transaksi.filter(t => t.jenis === 'keluar').forEach(t => {
-        kategoriKeluar[t.kategori] = (kategoriKeluar[t.kategori] || 0) + t.jumlah
-      })
-
-      const sorted = Object.entries(kategoriKeluar).sort((a, b) => b[1] - a[1])
-      const maxVal = sorted.length > 0 ? sorted[0][1] : 1
-
-      let html = ''
-      sorted.forEach(([k, v]) => {
-        const pct = Math.round((v / maxVal) * 100)
-        html += `
-          <div class="chart-bar-item">
-            <div class="chart-bar-label">${k}</div>
-            <div class="chart-bar-track">
-              <div class="chart-bar-fill keluar" style="width:${pct}%"></div>
-            </div>
-            <div class="chart-bar-value">${formatRupiah(v)}</div>
-          </div>
-        `
-      })
-
-      document.getElementById('chart-container').innerHTML = html ||
-        '<p style="color:rgba(255,255,255,0.3); font-size:0.9em;">Belum ada data pengeluaran</p>'
-    }
-
-    // ===== TABEL TRANSAKSI =====
-    function renderTabelTransaksi(transaksi) {
-      const container = document.getElementById('transaksi-container')
-      const infoEl = document.getElementById('total-filter-info')
-      const totalEl = document.getElementById('total-transaksi')
-
-      if (!transaksi || transaksi.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>Tidak ada transaksi</p></div>'
-        infoEl.textContent = '0 transaksi'
-        totalEl.innerHTML = ''
-        return
+      const tbody = document.getElementById('kas-body');
+      if (transaksi.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:rgba(255,255,255,0.4);">Belum ada transaksi</td></tr>';
+        return;
       }
 
-      let totalM = 0, totalK = 0
-      transaksi.forEach(t => {
-        if (t.jenis === 'masuk') totalM += t.jumlah
-        else totalK += t.jumlah
-      })
-
-      infoEl.innerHTML = `📊 ${transaksi.length} transaksi ditemukan`
-
-      let html = `
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Jenis</th>
-                <th>Kategori</th>
-                <th>Keterangan</th>
-                <th style="text-align:right;">Jumlah</th>
-              </tr>
-            </thead>
-            <tbody>
-      `
-
-      const sorted = [...transaksi].sort((a, b) =>
-        tanggalKeDate(b.tanggal) - tanggalKeDate(a.tanggal)
-      )
-
-      sorted.forEach((t, i) => {
-        const prefix = t.jenis === 'masuk' ? '+' : '-'
-        const cls = t.jenis === 'masuk' ? 'transaksi-masuk' : 'transaksi-keluar'
-        html += `
-          <tr>
-            <td style="color:rgba(255,255,255,0.4); font-size:0.85em;">${i + 1}</td>
-            <td>${t.tanggal}</td>
-            <td><span class="badge-jenis badge-${t.jenis}">${t.jenis === 'masuk' ? '📥 MASUK' : '📤 KELUAR'}</span></td>
-            <td><span class="kategori-tag">${t.kategori}</span></td>
-            <td>${t.keterangan}</td>
-            <td style="text-align:right;" class="${cls}">${prefix}${formatRupiah(t.jumlah)}</td>
-          </tr>
-        `
-      })
-
-      html += '</tbody></table></div>'
-      container.innerHTML = html
-
-      totalEl.innerHTML = `
-        <div style="display:inline-flex; gap:30px; background:rgba(255,255,255,0.04); padding:12px 20px; border-radius:12px; border:1px solid rgba(255,255,255,0.08);">
-          <span style="color:rgba(255,255,255,0.5); font-size:0.85em;">Total Masuk: <span style="color:#34d399; font-weight:700;">${formatRupiah(totalM)}</span></span>
-          <span style="color:rgba(255,255,255,0.5); font-size:0.85em;">Total Keluar: <span style="color:#f87171; font-weight:700;">${formatRupiah(totalK)}</span></span>
-          <span style="color:rgba(255,255,255,0.5); font-size:0.85em;">Selisih: <span style="color:${totalM-totalK >= 0 ? '#34d399':'#f87171'}; font-weight:700;">${formatRupiah(totalM - totalK)}</span></span>
-        </div>
-      `
+      const sorted = [...transaksi].reverse();
+      tbody.innerHTML = sorted.map(t => `
+        <tr>
+          <td>${t.tanggal}</td>
+          <td><span style="padding:4px 10px; border-radius:20px; font-size:0.8em; font-weight:600; background:${t.jenis==='masuk'?'rgba(52,211,153,0.15)':'rgba(248,113,113,0.15)'}; color:${t.jenis==='masuk'?'#34d399':'#f87171'};">${t.jenis==='masuk'?'MASUK':'KELUAR'}</span></td>
+          <td>${t.kategori}</td>
+          <td>${t.keterangan}</td>
+          <td style="text-align:right; font-weight:700; color:${t.jenis==='masuk'?'#34d399':'#f87171'};">${t.jenis==='masuk'?'+':'-'}${formatRp(t.jumlah)}</td>
+        </tr>
+      `).join('');
     }
 
-    // ===== FILTER TRANSAKSI =====
-    function filterTransaksi() {
-      if (!dbGlobal || !dbGlobal.kas) return
-
-      const filterBulan = document.getElementById('filterBulan').value
-      const filterJenis = document.getElementById('filterJenis').value
-
-      let transaksi = [...dbGlobal.kas.transaksi]
-
-      if (filterBulan !== 'semua') {
-        transaksi = transaksi.filter(t => {
-          const d = tanggalKeDate(t.tanggal)
-          return d.getMonth() === parseInt(filterBulan)
-        })
-      }
-
-      if (filterJenis !== 'semua') {
-        transaksi = transaksi.filter(t => t.jenis === filterJenis)
-      }
-
-      renderRingkasanKategori(transaksi)
-      renderChart(transaksi)
-      renderTabelTransaksi(transaksi)
+    function bukaTab(tab, el) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      if (el) el.classList.add('active');
     }
 
-    // ===== START =====
-    document.addEventListener('DOMContentLoaded', muatDatabase)
+    document.addEventListener('DOMContentLoaded', muatDatabase);
   </script>
 </body>
 </html>
