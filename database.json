@@ -7,6 +7,27 @@
     "kitab": "",
     "deskripsi": ""
   },
+   "donatur": [
+    {
+      "id": 1,
+      "nama": "H. Ahmad Fauzi",
+      "alamat": "Jl. Sudirman No. 123, Balikpapan",
+      "nominal": 2500000,
+      "tanggal": "4 Januari 2026",
+      "keterangan": "Donasi awal tahun"
+    },
+    {
+      "id": 2,
+      "nama": "Hj. Siti Aminah",
+      "alamat": "Komplek Griya Permata, Blok A5",
+      "nominal": 1000000,
+      "tanggal": "5 Januari 2026",
+      "keterangan": ""
+    }
+  ],
+  "panitia": [...],
+  "kas": {...}
+}
   "jadwal": [],
   "panitia": [
     {
