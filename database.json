@@ -22,18 +22,6 @@
       "tanggal": "18 Januari 2026",
       "pemateri": "Ustadz Yazid bin Abdul Qadir Jawas",
       "tema": "Adab Murid Terhadap Gurunya"
-    },
-    {
-      "pertemuan": 4,
-      "tanggal": "25 Januari 2026",
-      "pemateri": "Ustadz Aris Nurhidayat",
-      "tema": "Keutamaan Hari Jumat"
-    },
-    {
-      "pertemuan": 5,
-      "tanggal": "1 Februari 2026",
-      "pemateri": "Ustadz Adi Winarso",
-      "tema": "Rahasia Sholat Dhuha"
     }
   ],
   "panitia": [
@@ -46,21 +34,45 @@
       "bagian": "Bidang Kajian"
     },
     {
-      "nama": "H. Abdullah",
-      "bagian": "Sekretaris"
-    },
-    {
       "nama": "Hj. Fatimah",
       "bagian": "Bendahara"
-    },
-    {
-      "nama": "H. Hasan",
-      "bagian": "Humas & Publikasi"
     }
   ],
-  "kontak": {
-    "telepon": "0812-3456-7890",
-    "email": "panitia@pengajian2026.org",
-    "alamat": "Jl. Masjid Agung No. 1, Balikpapan"
+  "kas": {
+    "saldo_terakhir": 2500000,
+    "transaksi": [
+      {
+        "id": 1,
+        "tanggal": "1 Januari 2026",
+        "jenis": "masuk",
+        "kategori": "Iuran Panchakra",
+        "keterangan": "Iuran 10 anggota Panchakra @ Rp 250.000",
+        "jumlah": 2500000
+      },
+      {
+        "id": 2,
+        "tanggal": "2 Januari 2026",
+        "jenis": "keluar",
+        "kategori": "Honor Pemateri",
+        "keterangan": "Honor Ustadz Dr. Firanda Andirja",
+        "jumlah": 1500000
+      },
+      {
+        "id": 3,
+        "tanggal": "3 Januari 2026",
+        "jenis": "keluar",
+        "kategori": "Operasional",
+        "keterangan": "Snack & Minuman 20 box",
+        "jumlah": 300000
+      },
+      {
+        "id": 4,
+        "tanggal": "3 Januari 2026",
+        "jenis": "keluar",
+        "kategori": "ATK",
+        "keterangan": "Buku Kitab Bulughul Maram 20 eksemplar",
+        "jumlah": 400000
+      }
+    ]
   }
 }
