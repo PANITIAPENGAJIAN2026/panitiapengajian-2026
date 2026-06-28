@@ -1,251 +1,815 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="theme-color" content="#2a5298">
-    <title>Admin - Panitia Pengajian 2026</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Panitia Pengajian 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 20px;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .card h2 {
+      color: #0d47a1;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #1976d2;
+    }
+
+    /* Login Form */
+    .login-container {
+      max-width: 500px;
+      margin: 50px auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #0d47a1;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #1976d2;
+    }
+
+    .form-group .help-text {
+      font-size: 0.85em;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(13, 71, 161, 0.4);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #2e7d32, #43a047);
+      color: white;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #c62828, #e53935);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    /* Alert */
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .alert.show {
+      display: block;
+    }
+
+    .alert-success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border-left: 4px solid #2e7d32;
+    }
+
+    .alert-error {
+      background: #ffebee;
+      color: #c62828;
+      border-left: 4px solid #c62828;
+    }
+
+    .alert-info {
+      background: #e3f2fd;
+      color: #1565c0;
+      border-left: 4px solid #1565c0;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+    }
+
+    .stat-card.saldo { background: linear-gradient(135deg, #2e7d32, #43a047); }
+    .stat-card.masuk { background: linear-gradient(135deg, #1565c0, #1976d2); }
+    .stat-card.keluar { background: linear-gradient(135deg, #c62828, #e53935); }
+
+    .stat-card .label { font-size: 0.85em; opacity: 0.9; }
+    .stat-card .amount { font-size: 1.4em; font-weight: bold; margin-top: 5px; }
+
+    /* Table */
+    .table-wrapper { overflow-x: auto; }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: linear-gradient(135deg, #0d47a1, #1565c0);
+      color: white;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tbody tr:hover {
+      background: #f5f5f5;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    .badge-masuk { background: #e8f5e9; color: #2e7d32; }
+    .badge-keluar { background: #ffebee; color: #c62828; }
+
+    .text-masuk { color: #2e7d32; font-weight: bold; }
+    .text-keluar { color: #c62828; font-weight: bold; }
+
+    /* Hidden */
+    .hidden { display: none; }
+
+    /* Header Actions */
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .user-info {
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Setup Guide */
+    .setup-guide {
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid #ff9800;
+    }
+
+    .setup-guide h3 {
+      color: #e65100;
+      margin-bottom: 10px;
+    }
+
+    .setup-guide ol {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+
+    .setup-guide code {
+      background: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d32f2f;
+    }
+
+    .setup-guide a {
+      color: #1565c0;
+      font-weight: bold;
+    }
+
+    /* Loading */
+    .loading-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .loading-overlay.show {
+      display: flex;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid #fff;
+      border-top-color: #1976d2;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .delete-btn {
+      background: #ffebee;
+      color: #c62828;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85em;
+    }
+
+    .delete-btn:hover {
+      background: #ffcdd2;
+    }
+  </style>
 </head>
 <body>
-    <!-- Login Modal (Tampil pertama kali) -->
-    <div id="loginModal" class="modal" style="display: flex; align-items: center; justify-content: center;">
-        <div class="modal-content" style="width: 100%; max-width: 400px;">
-            <div style="text-align: center;">
-                <h1 style="color: #2a5298; margin-bottom: 10px;">📚 Panitia Pengajian 2026</h1>
-                <h2 style="font-size: 20px; color: #667eea; margin-bottom: 30px;">Login Admin</h2>
-            </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="username" placeholder="Masukkan username" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Masukkan password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-                <p style="text-align: center; margin-top: 15px; font-size: 13px; color: #7f8c8d;">
-                    Hubungi ketua panitia untuk mendapat akses admin
-                </p>
-            </form>
-            <div id="loginError" style="color: #e74c3c; text-align: center; margin-top: 10px; display: none;">
-                Username atau password salah!
-            </div>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+
+  <header>
+    <h1>🔐 Admin Panel</h1>
+    <p>Panitia Pengajian 2026 - Masjid Agung At-Taqwa</p>
+  </header>
+
+  <div class="container">
+    <!-- LOGIN PAGE -->
+    <div id="loginPage">
+      <div class="login-container">
+        <div class="setup-guide">
+          <h3>⚙️ Setup Pertama Kali</h3>
+          <ol>
+            <li>Buat <strong>Personal Access Token</strong> di GitHub:
+              <a href="https://github.com/settings/tokens/new?scopes=repo&description=Admin%20Pengajian%202026" target="_blank">Klik di sini</a>
+            </li>
+            <li>Centang scope: <code>repo</code></li>
+            <li>Set expiration: <code>No expiration</code> (atau sesuai keinginan)</li>
+            <li>Klik <strong>Generate token</strong></li>
+            <li>Copy token (format: <code>ghp_xxx...</code>)</li>
+            <li>Paste token di form bawah</li>
+          </ol>
+          <p style="margin-top: 10px; color: #c62828;">
+            ⚠️ <strong>JANGAN</strong> bagikan token ini kepada siapapun!
+          </p>
         </div>
+
+        <div class="card">
+          <h2>🔑 Login Admin</h2>
+          
+          <div class="alert alert-error" id="loginAlert"></div>
+
+          <div class="form-group">
+            <label>GitHub Personal Access Token</label>
+            <input 
+              type="password" 
+              id="tokenInput" 
+              placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+            >
+            <div class="help-text">Token akan disimpan di browser ini saja</div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="rememberMe" checked>
+              Ingat saya (simpan token di browser)
+            </label>
+          </div>
+
+          <button class="btn btn-primary btn-block" onclick="login()">
+            🔓 Login
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Main Content (Tampil setelah login) -->
-    <div id="mainContent" style="display: none;">
-        <nav class="navbar">
-            <div class="container">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h1>📚 Panitia Pengajian 2026 - Admin</h1>
-                    <button class="btn" style="background: #e74c3c; color: white; padding: 8px 15px;" onclick="logout()">Logout</button>
-                </div>
-            </div>
-        </nav>
-
-        <div class="container">
-            <!-- Dashboard Overview -->
-            <div class="dashboard-overview">
-                <div class="card stats">
-                    <h3>Total Donasi Masuk</h3>
-                    <p class="amount" id="totalDonasi">Rp 0</p>
-                    <span class="count">dari <span id="jumlahDonatur">0</span> donatur</span>
-                </div>
-                <div class="card stats">
-                    <h3>Total Pengeluaran</h3>
-                    <p class="amount warning" id="totalPengeluaran">Rp 0</p>
-                </div>
-                <div class="card stats">
-                    <h3>Sisa Dana</h3>
-                    <p class="amount success" id="sisaDana">Rp 0</p>
-                </div>
-                <div class="card stats">
-                    <h3>Persentase Pengeluaran</h3>
-                    <p class="amount" id="persentasePengeluaran">0%</p>
-                </div>
-            </div>
-
-            <!-- Tabs Navigation -->
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="donasi">Daftar Donatur</button>
-                <button class="tab-btn" data-tab="pengeluaran">Pengeluaran</button>
-                <button class="tab-btn" data-tab="laporan">Laporan</button>
-                <button class="tab-btn" data-tab="input">Input Data</button>
-            </div>
-
-            <!-- Tab: Donasi -->
-            <div id="donasi" class="tab-content active">
-                <div class="card">
-                    <h2>📋 Daftar Donatur</h2>
-                    <div class="search-bar">
-                        <input type="text" id="searchDonatur" placeholder="Cari nama donatur...">
-                    </div>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Donatur</th>
-                                    <th>Jumlah Donasi</th>
-                                    <th>Tanggal</th>
-                                    <th>Keterangan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="daftarDonasi">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab: Pengeluaran -->
-            <div id="pengeluaran" class="tab-content">
-                <div class="card">
-                    <h2>💰 Pengeluaran Belanja</h2>
-                    <div class="search-bar">
-                        <input type="text" id="searchPengeluaran" placeholder="Cari item pengeluaran...">
-                    </div>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Item Belanja</th>
-                                    <th>Jumlah</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Total</th>
-                                    <th>Tanggal</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="daftarPengeluaran">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab: Laporan -->
-            <div id="laporan" class="tab-content">
-                <div class="card">
-                    <h2>📊 Laporan Keuangan</h2>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <h3>Grafik Perbandingan</h3>
-                            <canvas id="chartPerbandingan"></canvas>
-                        </div>
-                        <div>
-                            <h3>Rincian Pengeluaran</h3>
-                            <canvas id="chartPengeluaran"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h2>📄 Ringkasan Keuangan</h2>
-                    <div class="summary">
-                        <div class="summary-item">
-                            <span>Total Pemasukan:</span>
-                            <strong id="summaryPemasukan">Rp 0</strong>
-                        </div>
-                        <div class="summary-item">
-                            <span>Total Pengeluaran:</span>
-                            <strong id="summaryPengeluaran">Rp 0</strong>
-                        </div>
-                        <div class="summary-item highlight">
-                            <span>Saldo Akhir:</span>
-                            <strong id="summarySaldo">Rp 0</strong>
-                        </div>
-                    </div>
-                    <button class="btn btn-print" onclick="cetakLaporan()">🖨️ Cetak Laporan</button>
-                </div>
-            </div>
-
-            <!-- Tab: Input Data -->
-            <div id="input" class="tab-content">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <!-- Form Donasi -->
-                    <div class="card">
-                        <h2>➕ Tambah Donasi</h2>
-                        <form id="formDonasi">
-                            <div class="form-group">
-                                <label>Nama Donatur *</label>
-                                <input type="text" id="namaDonatur" required placeholder="Masukkan nama">
-                            </div>
-                            <div class="form-group">
-                                <label>Jumlah Donasi (Rp) *</label>
-                                <input type="number" id="jumlahDonasi" required placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label>Tanggal Donasi</label>
-                                <input type="date" id="tanggalDonasi">
-                            </div>
-                            <div class="form-group">
-                                <label>Keterangan</label>
-                                <input type="text" id="keteranganDonasi" placeholder="Opsional">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Tambah Donasi</button>
-                        </form>
-                    </div>
-
-                    <!-- Form Pengeluaran -->
-                    <div class="card">
-                        <h2>➕ Tambah Pengeluaran</h2>
-                        <form id="formPengeluaran">
-                            <div class="form-group">
-                                <label>Item Belanja *</label>
-                                <input type="text" id="itemBelanja" required placeholder="Misal: Nasi Kuning">
-                            </div>
-                            <div class="form-group">
-                                <label>Jumlah *</label>
-                                <input type="number" id="jumlahBelanja" required placeholder="1" min="1">
-                            </div>
-                            <div class="form-group">
-                                <label>Harga Satuan (Rp) *</label>
-                                <input type="number" id="hargaSatuan" required placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label>Tanggal Pembelian</label>
-                                <input type="date" id="tanggalBelanja">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Tambah Pengeluaran</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminDashboard" class="hidden">
+      <div class="header-actions">
+        <div class="user-info">
+          <span>✅ Login sebagai Admin</span>
         </div>
-
-        <!-- Modal untuk Edit -->
-        <div id="modalEdit" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Edit Data</h2>
-                <form id="formEdit">
-                    <input type="hidden" id="editId">
-                    <input type="hidden" id="editType">
-                    <div class="form-group">
-                        <label id="editLabel">Nama</label>
-                        <input type="text" id="editValue" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Jumlah (Rp)</label>
-                        <input type="number" id="editJumlah" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                </form>
-            </div>
+        <div>
+          <a href="index.html" class="btn btn-secondary">🏠 Lihat Website</a>
+          <button class="btn btn-danger" onclick="logout()">🚪 Logout</button>
         </div>
+      </div>
 
-        <footer>
-            <p>&copy; 2026 Panitia Pengajian - Semoga Berkah | Mode: <strong>ADMIN</strong></p>
-        </footer>
+      <!-- Stats -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="loading">Memuat...</div>
+      </div>
+
+      <!-- Form Tambah Transaksi -->
+      <div class="card">
+        <h2>➕ Tambah Transaksi Baru</h2>
+        
+        <div class="alert alert-success" id="successAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+
+        <form id="transactionForm" onsubmit="tambahTransaksi(event)">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+              <label>Tanggal *</label>
+              <input type="date" id="tanggal" required>
+            </div>
+
+            <div class="form-group">
+              <label>Jenis Transaksi *</label>
+              <select id="jenis" required>
+                <option value="">-- Pilih Jenis --</option>
+                <option value="masuk">💰 Pemasukan (Masuk)</option>
+                <option value="keluar">💸 Pengeluaran (Keluar)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Kategori *</label>
+            <select id="kategori" required>
+              <option value="">-- Pilih Kategori --</option>
+              <optgroup label="Pemasukan">
+                <option value="Iuran Panchakra">Iuran Panchakra</option>
+                <option value="Donasi">Donasi</option>
+                <option value="Infaq Jamaah">Infaq Jamaah</option>
+                <option value="Lainnya">Lainnya</option>
+              </optgroup>
+              <optgroup label="Pengeluaran">
+                <option value="Honor Pemateri">Honor Pemateri</option>
+                <option value="Operasional">Operasional</option>
+                <option value="Konsumsi">Konsumsi</option>
+                <option value="ATK">ATK / Buku</option>
+                <option value="Transportasi">Transportasi</option>
+                <option value="Sound System">Sound System</option>
+                <option value="Lainnya">Lainnya</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Keterangan *</label>
+            <textarea id="keterangan" rows="2" required placeholder="Contoh: Honor Ustadz Firanda Andirja"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Jumlah (Rp) *</label>
+            <input type="number" id="jumlah" min="1" required placeholder="500000">
+            <div class="help-text" id="jumlahPreview"></div>
+          </div>
+
+          <button type="submit" class="btn btn-success btn-block">
+            💾 Simpan Transaksi
+          </button>
+        </form>
+      </div>
+
+      <!-- Daftar Transaksi -->
+      <div class="card">
+        <h2>📋 Daftar Transaksi</h2>
+        <div id="transaksiList">
+          <div class="loading">Memuat...</div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script src="admin.js"></script>
+  <script>
+    // ===== KONFIGURASI =====
+    const GITHUB_CONFIG = {
+      owner: 'panitiapengajian2026',
+      repo: 'panitiapengajian-2026',
+      filePath: 'database.json',
+      branch: 'main'  // ganti ke 'master' jika branch utama bernama master
+    }
+
+    let currentDatabase = null
+    let currentFileSha = null
+
+    // ===== LOGIN SYSTEM =====
+    function showAlert(elementId, message, type = 'error') {
+      const alert = document.getElementById(elementId)
+      alert.textContent = message
+      alert.className = `alert alert-${type} show`
+      
+      if (type === 'success') {
+        setTimeout(() => alert.classList.remove('show'), 3000)
+      }
+    }
+
+    function showLoading(show) {
+      document.getElementById('loadingOverlay').classList.toggle('show', show)
+    }
+
+    async function login() {
+      const token = document.getElementById('tokenInput').value.trim()
+      const remember = document.getElementById('rememberMe').checked
+
+      if (!token) {
+        showAlert('loginAlert', 'Masukkan token GitHub!')
+        return
+      }
+
+      showLoading(true)
+
+      try {
+        // Test token dengan ambil database
+        const data = await fetchDatabase(token)
+        
+        if (remember) {
+          localStorage.setItem('github_token', token)
+        } else {
+          sessionStorage.setItem('github_token', token)
+        }
+
+        // Tampilkan dashboard
+        document.getElementById('loginPage').classList.add('hidden')
+        document.getElementById('adminDashboard').classList.remove('hidden')
+        
+        // Set tanggal hari ini
+        document.getElementById('tanggal').valueAsDate = new Date()
+        
+        // Render data
+        renderDashboard()
+        
+      } catch (error) {
+        showAlert('loginAlert', `Login gagal: ${error.message}`)
+      } finally {
+        showLoading(false)
+      }
+    }
+
+    function logout() {
+      if (confirm('Yakin ingin logout?')) {
+        localStorage.removeItem('github_token')
+        sessionStorage.removeItem('github_token')
+        location.reload()
+      }
+    }
+
+    function getToken() {
+      return localStorage.getItem('github_token') || sessionStorage.getItem('github_token')
+    }
+
+    // ===== GITHUB API =====
+    async function fetchDatabase(token) {
+      const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}?ref=${GITHUB_CONFIG.branch}`
+      
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      })
+
+      if (!response.ok) {
+        if (response.status === 401) throw new Error('Token tidak valid')
+        if (response.status === 404) throw new Error('File database.json tidak ditemukan')
+        throw new Error(`Error ${response.status}`)
+      }
+
+      const data = await response.json()
+      currentFileSha = data.sha
+      
+      // Decode base64
+      const content = decodeURIComponent(escape(atob(data.content)))
+      currentDatabase = JSON.parse(content)
+      
+      return currentDatabase
+    }
+
+    async function saveDatabase(token, newData, commitMessage) {
+      const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`
+      
+      const content = JSON.stringify(newData, null, 2)
+      const encodedContent = btoa(unescape(encodeURIComponent(content)))
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: commitMessage,
+          content: encodedContent,
+          sha: currentFileSha,
+          branch: GITHUB_CONFIG.branch
+        })
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message || 'Gagal menyimpan')
+      }
+
+      const result = await response.json()
+      currentFileSha = result.content.sha
+      return result
+    }
+
+    // ===== DASHBOARD =====
+    function formatRupiah(angka) {
+      return 'Rp ' + Number(angka).toLocaleString('id-ID')
+    }
+
+    function formatTanggalIndonesia(tanggalISO) {
+      const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                     'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+      const d = new Date(tanggalISO)
+      return `${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}`
+    }
+
+    function renderDashboard() {
+      if (!currentDatabase || !currentDatabase.kas) {
+        showAlert('errorAlert', 'Data kas tidak ditemukan di database')
+        return
+      }
+
+      const kas = currentDatabase.kas
+      
+      // Hitung stats
+      let totalMasuk = 0, totalKeluar = 0
+      kas.transaksi.forEach(t => {
+        if (t.jenis === 'masuk') totalMasuk += t.jumlah
+        else totalKeluar += t.jumlah
+      })
+      
+      const saldo = kas.saldo_terakhir + totalMasuk - totalKeluar
+
+      // Render stats
+      document.getElementById('statsGrid').innerHTML = `
+        <div class="stat-card saldo">
+          <div class="label">💰 Saldo Kas</div>
+          <div class="amount">${formatRupiah(saldo)}</div>
+        </div>
+        <div class="stat-card masuk">
+          <div class="label">📥 Total Masuk</div>
+          <div class="amount">${formatRupiah(totalMasuk)}</div>
+        </div>
+        <div class="stat-card keluar">
+          <div class="label">📤 Total Keluar</div>
+          <div class="amount">${formatRupiah(totalKeluar)}</div>
+        </div>
+      `
+
+      // Render tabel transaksi
+      renderTransaksiList(kas.transaksi)
+    }
+
+    function renderTransaksiList(transaksi) {
+      const container = document.getElementById('transaksiList')
+      
+      if (!transaksi || transaksi.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Belum ada transaksi.</p>'
+        return
+      }
+
+      // Urutkan terbaru di atas
+      const sorted = [...transaksi].reverse()
+      
+      let html = `
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Jenis</th>
+                <th>Kategori</th>
+                <th>Keterangan</th>
+                <th>Jumlah</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+      `
+      
+      sorted.forEach(t => {
+        const badgeClass = t.jenis === 'masuk' ? 'badge-masuk' : 'badge-keluar'
+        const textClass = t.jenis === 'masuk' ? 'text-masuk' : 'text-keluar'
+        const prefix = t.jenis === 'masuk' ? '+' : '-'
+        
+        html += `
+          <tr>
+            <td>${t.tanggal}</td>
+            <td><span class="badge ${badgeClass}">${t.jenis.toUpperCase()}</span></td>
+            <td>${t.kategori}</td>
+            <td>${t.keterangan}</td>
+            <td class="${textClass}">${prefix}${formatRupiah(t.jumlah)}</td>
+            <td>
+              <button class="delete-btn" onclick="hapusTransaksi(${t.id})">🗑️ Hapus</button>
+            </td>
+          </tr>
+        `
+      })
+      
+      html += '</tbody></table></div>'
+      container.innerHTML = html
+    }
+
+    // ===== TAMBAH TRANSAKSI =====
+    async function tambahTransaksi(event) {
+      event.preventDefault()
+      
+      const token = getToken()
+      if (!token) {
+        alert('Session expired, silakan login ulang')
+        location.reload()
+        return
+      }
+
+      // Ambil data form
+      const tanggal = document.getElementById('tanggal').value
+      const jenis = document.getElementById('jenis').value
+      const kategori = document.getElementById('kategori').value
+      const keterangan = document.getElementById('keterangan').value
+      const jumlah = parseInt(document.getElementById('jumlah').value)
+
+      // Generate ID baru
+      const maxId = currentDatabase.kas.transaksi.reduce((max, t) => Math.max(max, t.id || 0), 0)
+      
+      const newTransaksi = {
+        id: maxId + 1,
+        tanggal: formatTanggalIndonesia(tanggal),
+        jenis: jenis,
+        kategori: kategori,
+        keterangan: keterangan,
+        jumlah: jumlah
+      }
+
+      showLoading(true)
+
+      try {
+        // Tambahkan ke database
+        currentDatabase.kas.transaksi.push(newTransaksi)
+        
+        // Save ke GitHub
+        const commitMsg = `Tambah transaksi: ${jenis} - ${kategori} - ${formatRupiah(jumlah)}`
+        await saveDatabase(token, currentDatabase, commitMsg)
+        
+        showAlert('successAlert', '✅ Transaksi berhasil ditambahkan!', 'success')
+        
+        // Reset form
+        document.getElementById('transactionForm').reset()
+        document.getElementById('tanggal').valueAsDate = new Date()
+        document.getElementById('jumlahPreview').textContent = ''
+        
+        // Update dashboard
+        renderDashboard()
+        
+      } catch (error) {
+        // Rollback
+        currentDatabase.kas.transaksi.pop()
+        showAlert('errorAlert', `Gagal menyimpan: ${error.message}`)
+      } finally {
+        showLoading(false)
+      }
+    }
+
+    // ===== HAPUS TRANSAKSI =====
+    async function hapusTransaksi(id) {
+      if (!confirm('Yakin ingin menghapus transaksi ini?')) return
+      
+      const token = getToken()
+      if (!token) {
+        alert('Session expired, silakan login ulang')
+        location.reload()
+        return
+      }
+
+      showLoading(true)
+
+      // Backup untuk rollback
+      const backup = [...currentDatabase.kas.transaksi]
+
+      try {
+        // Hapus dari database
+        currentDatabase.kas.transaksi = currentDatabase.kas.transaksi.filter(t => t.id !== id)
+        
+        // Save ke GitHub
+        const commitMsg = `Hapus transaksi ID: ${id}`
+        await saveDatabase(token, currentDatabase, commitMsg)
+        
+        renderDashboard()
+        
+      } catch (error) {
+        // Rollback
+        currentDatabase.kas.transaksi = backup
+        alert(`Gagal menghapus: ${error.message}`)
+      } finally {
+        showLoading(false)
+      }
+    }
+
+    // ===== PREVIEW JUMLAH =====
+    document.addEventListener('DOMContentLoaded', () => {
+      // Auto-login jika token tersimpan
+      const savedToken = getToken()
+      if (savedToken) {
+        document.getElementById('tokenInput').value = savedToken
+        login()
+      }
+
+      // Preview jumlah
+      const jumlahInput = document.getElementById('jumlah')
+      if (jumlahInput) {
+        jumlahInput.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value)
+          document.getElementById('jumlahPreview').textContent = 
+            val ? `≈ ${formatRupiah(val)}` : ''
+        })
+      }
+    })
+  </script>
 </body>
 </html>
