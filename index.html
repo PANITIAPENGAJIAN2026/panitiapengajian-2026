@@ -1,58 +1,737 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panitia Pengajian 2026</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panitia Pengajian 2026 - Masjid Agung At-Taqwa Balikpapan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    header .subtitle {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    /* Tab Navigation */
+    .tab-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .tab-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: #0d47a1;
+      font-weight: bold;
+    }
+
+    /* Card Styles */
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .card h2 {
+      color: #0d47a1;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #1976d2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h2::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 25px;
+      background: linear-gradient(to bottom, #0d47a1, #1976d2);
+      border-radius: 3px;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Info Box */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .info-item {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .info-item .icon {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .info-item .label {
+      color: #1565c0;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .info-item .value {
+      color: #0d47a1;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    /* Table Styles */
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    thead {
+      background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+      color: white;
+    }
+
+    th {
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    th:first-child {
+      border-radius: 10px 0 0 0;
+    }
+
+    th:last-child {
+      border-radius: 0 10px 0 0;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #e0e0e0;
+      transition: background 0.3s;
+    }
+
+    tbody tr:hover {
+      background: #f5f5f5;
+    }
+
+    td {
+      padding: 15px;
+    }
+
+    .pertemuan-badge {
+      background: #0d47a1;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    /* Committee Grid */
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .committee-item {
+      background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      border-left: 4px solid #0d47a1;
+    }
+
+    .committee-item .name {
+      font-weight: bold;
+      color: #0d47a1;
+      margin-bottom: 5px;
+    }
+
+    .committee-item .role {
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    /* ===== KAS STYLES ===== */
+    
+    /* Saldo Card */
+    .saldo-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .saldo-card {
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      color: white;
+    }
+
+    .saldo-card.saldo {
+      background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    }
+
+    .saldo-card.masuk {
+      background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
+    }
+
+    .saldo-card.keluar {
+      background: linear-gradient(135deg, #c62828 0%, #e53935 100%);
+    }
+
+    .saldo-card .icon {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .saldo-card .label {
+      font-size: 0.9em;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .saldo-card .amount {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Transaksi Table */
+    .transaksi-masuk {
+      color: #2e7d32;
+      font-weight: bold;
+    }
+
+    .transaksi-keluar {
+      color: #c62828;
+      font-weight: bold;
+    }
+
+    .badge-jenis {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: bold;
+    }
+
+    .badge-masuk {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .badge-keluar {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    /* Category Tag */
+    .kategori-tag {
+      background: #e3f2fd;
+      color: #1565c0;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.85em;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: white;
+      opacity: 0.8;
+    }
+
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #0d47a1;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Error State */
+    .error {
+      background: #ffebee;
+      color: #c62828;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Welcome Banner */
+    .welcome-banner {
+      background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .welcome-banner h2 {
+      color: white;
+      border: none;
+      justify-content: center;
+    }
+
+    .welcome-banner h2::before {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      th, td {
+        padding: 10px;
+        font-size: 0.9em;
+      }
+
+      .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
 </head>
-<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
-    <div class="card" style="max-width: 500px; text-align: center;">
-        <h1 style="font-size: 48px; margin-bottom: 20px;">📚</h1>
-        <h2 style="color: #2a5298; margin-bottom: 30px;">Panitia Pengajian 2026</h2>
+<body>
+  <header>
+    <h1>📖Panitia Pengajian 2026📖</h1>
+    <p class="subtitle">Masjid Agung At-Taqwa Balikpapan</p>
+  </header>
+
+  <div class="container">
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="bukaTab('home')">🏠 Beranda</button>
+      <button class="tab-btn" onclick="bukaTab('jadwal')">📅 Jadwal</button>
+      <button class="tab-btn" onclick="bukaTab('panitia')">👥 Panchakra</button>
+      <button class="tab-btn" onclick="bukaTab('kas')">💰 Kas</button>
+    </div>
+
+    <!-- Tab: Home -->
+    <div id="tab-home" class="tab-content active">
+      <div class="welcome-banner">
+        <h2>🌟Selamat Datang di Sistem Informasi Pengajian🌟</h2>
+        <p id="tahun-info">Tahun 2026</p>
+        <p>📚 Kajian Kitab Bulughul Maram - Setiap Ahad Pukul 18.30 WIB</p>
+      </div>
+
+      <div class="card">
+        <h2>📌 Informasi Pengajian</h2>
+        <div class="info-grid" id="info-container">
+          <div class="loading">Memuat data...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Jadwal -->
+    <div id="tab-jadwal" class="tab-content">
+      <div class="card">
+        <h2>📅 Jadwal Pengajian</h2>
+        <div id="jadwal-container">
+          <div class="loading">Memuat jadwal...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Panchakra -->
+    <div id="tab-panitia" class="tab-content">
+      <div class="card">
+        <h2>👥 Susunan Panchakra</h2>
+        <div class="committee-grid" id="panitia-container">
+          <div class="loading">Memuat data Panchakra...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Kas -->
+    <div id="tab-kas" class="tab-content">
+      <div class="card">
+        <h2>💰 Laporan Kas</h2>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <a href="public.html" class="btn btn-primary" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                👥 Lihat Laporan
-            </a>
-            <a href="admin.html" class="btn btn-primary" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-                🔐 Admin Login
-            </a>
+        <!-- Saldo Summary -->
+        <div class="saldo-container" id="saldo-container">
+          <div class="loading">Memuat data kas...</div>
         </div>
 
-        <div style="margin-top: 40px; padding: 20px; background: #f0f7ff; border-radius: 5px;">
-            <h3 style="color: #2a5298; margin-bottom: 10px;">ℹ️ Informasi</h3>
-            <p style="color: #555; font-size: 14px; line-height: 1.6;">
-                <strong>Laporan Publik:</strong> Lihat daftar donatur dan pengeluaran keuangan<br><br>
-                <strong>Admin:</strong> Kelola data donasi dan pengeluaran (username: admin, password: pengajian2026)
-            </p>
+        <!-- Ringkasan -->
+        <div id="ringkasan-container"></div>
+
+        <!-- Tabel Transaksi -->
+        <h3 style="color: #0d47a1; margin: 25px 0 15px 0;">📋 Daftar Transaksi</h3>
+        <div id="transaksi-container">
+          <div class="loading">Memuat transaksi...</div>
         </div>
-    </div>async function muatDatabase() {
-  // Ambil data dari database yang ada di repo kita
-  const respon = await fetch('./database.json')
-  const data = await respon.json()
+      </div>
+    </div>
+  </div>
 
-  // Isi data pengaturan otomatis
-  document.getElementById('tahun').textContent = data.pengaturan.tahun
-  document.getElementById('tempat').textContent = data.pengaturan.tempat
+  <footer>
+    <p>© <span id="footer-year"></span>Panitia Pengajian 2026 - Masjid Agung At-Taqwa Balikpapan</p>
+    <p>Dibuat dengan ❤️ menggunakan GitHub Pages & Database</p>
+  </footer>
 
-  // Buat tabel jadwal otomatis
-  const tabelJadwal = document.querySelector('#jadwal tbody')
-  tabelJadwal.innerHTML = ''
+  <script>
+    // Fungsi Tab Navigation
+    function bukaTab(tabName) {
+      // Sembunyikan semua tab
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active')
+      })
+      
+      // Nonaktifkan semua tombol
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active')
+      })
+      
+      // Tampilkan tab yang dipilih
+      document.getElementById('tab-' + tabName).classList.add('active')
+      
+      // Aktifkan tombol yang dipilih
+      event.target.classList.add('active')
+    }
 
-  data.jadwal.forEach(pertemuan => {
-    const baris = document.createElement('tr')
-    baris.innerHTML = `
-      <td>${pertemuan.pertemuan}</td>
-      <td>${pertemuan.tanggal}</td>
-      <td>${pertemuan.pemateri}</td>
-      <td>${pertemuan.tema}</td>
-    `
-    tabelJadwal.appendChild(baris)
-  })
-}
+    // Fungsi format Rupiah
+    function formatRupiah(angka) {
+      return 'Rp ' + angka.toLocaleString('id-ID') + ',-'
+    }
 
-// Jalankan saat website selesai dimuat
-document.addEventListener('DOMContentLoaded', muatDatabase)
+    // Fungsi untuk memuat database
+    async function muatDatabase() {
+      try {
+        const response = await fetch('./database.json')
+        
+        if (!response.ok) {
+          throw new Error('Gagal mengambil data dari database')
+        }
+        
+        const data = await response.json()
+        
+        // Render semua komponen
+        renderInfo(data.pengaturan)
+        renderJadwal(data.jadwal)
+        renderPanitia(data.panitia)
+        renderKas(data.kas)
+        updateFooter()
+        
+      } catch (error) {
+        console.error('Error:', error)
+        tampilkanError(error.message)
+      }
+    }
+
+    // Render Info Section
+    function renderInfo(pengaturan) {
+      const container = document.getElementById('info-container')
+      
+      container.innerHTML = `
+        <div class="info-item">
+          <div class="icon">📅</div>
+          <div class="label">Tahun</div>
+          <div class="value" id="tahun">${pengaturan.tahun}</div>
+        </div>
+        <div class="info-item">
+          <div class="icon">🏛️</div>
+          <div class="label">Tempat</div>
+          <div class="value">${pengaturan.tempat}</div>
+        </div>
+        <div class="info-item">
+          <div class="icon">⏰</div>
+          <div class="label">Waktu</div>
+          <div class="value">${pengaturan.waktu}</div>
+        </div>
+      `
+      
+      document.getElementById('tahun-info').textContent = `Tahun ${pengaturan.tahun}`
+    }
+
+    // Render Jadwal Table
+    function renderJadwal(jadwal) {
+      const container = document.getElementById('jadwal-container')
+      
+      if (!jadwal || jadwal.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">Belum ada jadwal yang tersedia.</p>'
+        return
+      }
+      
+      let tableHTML = `
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Pertemuan</th>
+                <th>Tanggal</th>
+                <th>Pemateri</th>
+                <th>Tema</th>
+              </tr>
+            </thead>
+            <tbody>
+      `
+      
+      jadwal.forEach(item => {
+        tableHTML += `
+          <tr>
+            <td><span class="pertemuan-badge">${item.pertemuan}</span></td>
+            <td>${item.tanggal}</td>
+            <td>${item.pemateri}</td>
+            <td>${item.tema}</td>
+          </tr>
+        `
+      })
+      
+      tableHTML += `
+            </tbody>
+          </table>
+        </div>
+      `
+      
+      container.innerHTML = tableHTML
+    }
+
+    // Render Committee
+    function renderPanitia(panitia) {
+      const container = document.getElementById('panitia-container')
+      
+      if (!panitia || panitia.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">Belum ada data Panchakra.</p>'
+        return
+      }
+      
+      let html = ''
+      
+      panitia.forEach(item => {
+        html += `
+          <div class="committee-item">
+            <div class="name">${item.nama}</div>
+            <div class="role">${item.bagian}</div>
+          </div>
+        `
+      })
+      
+      container.innerHTML = html
+    }
+
+    // Render Kas
+    function renderKas(kas) {
+      // Hitung total masuk dan keluar
+      let totalMasuk = 0
+      let totalKeluar = 0
+      
+      kas.transaksi.forEach(t => {
+        if (t.jenis === 'masuk') {
+          totalMasuk += t.jumlah
+        } else {
+          totalKeluar += t.jumlah
+        }
+      })
+      
+      // Saldo dari transaksi
+      const saldoTransaksi = totalMasuk - totalKeluar
+      
+      // Saldo terakhir (dari database + transaksi berjalan)
+      const saldoAkhir = kas.saldo_terakhir + saldoTransaksi
+      
+      // Render Saldo Cards
+      const saldoContainer = document.getElementById('saldo-container')
+      saldoContainer.innerHTML = `
+        <div class="saldo-card saldo">
+          <div class="icon">💰</div>
+          <div class="label">Saldo Kas</div>
+          <div class="amount">${formatRupiah(saldoAkhir)}</div>
+        </div>
+        <div class="saldo-card masuk">
+          <div class="icon">📥</div>
+          <div class="label">Total Masuk</div>
+          <div class="amount">${formatRupiah(totalMasuk)}</div>
+        </div>
+        <div class="saldo-card keluar">
+          <div class="icon">📤</div>
+          <div class="label">Total Keluar</div>
+          <div class="amount">${formatRupiah(totalKeluar)}</div>
+        </div>
+      `
+      
+      // Render Ringkasan
+      const ringkasanContainer = document.getElementById('ringkasan-container')
+      ringkasanContainer.innerHTML = `
+        <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-top: 15px;">
+          <p style="margin-bottom: 5px;"><strong>📊 Ringkasan:</strong></p>
+          <p>• Saldo Awal: ${formatRupiah(kas.saldo_terakhir)}</p>
+          <p>• Saldo dari Transaksi: ${formatRupiah(saldoTransaksi)} (${totalMasuk} - ${totalKeluar})</p>
+          <p style="margin-top: 10px; font-weight: bold;">• Saldo Akhir: ${formatRupiah(saldoAkhir)}</p>
+        </div>
+      `
+      
+      // Render Tabel Transaksi
+      const transaksiContainer = document.getElementById('transaksi-container')
+      
+      if (!kas.transaksi || kas.transaksi.length === 0) {
+        transaksiContainer.innerHTML = '<p style="text-align: center; color: #666;">Belum ada transaksi.</p>'
+        return
+      }
+      
+      let tableHTML = `
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Jenis</th>
+                <th>Kategori</th>
+                <th>Keterangan</th>
+                <th>Jumlah</th>
+              </tr>
+            </thead>
+            <tbody>
+      `
+      
+      kas.transaksi.forEach((t, index) => {
+        const kelasJenis = t.jenis === 'masuk' ? 'transaksi-masuk' : 'transaksi-keluar'
+        const badgeClass = t.jenis === 'masuk' ? 'badge-masuk' : 'badge-keluar'
+        const badgeText = t.jenis === 'masuk' ? 'MASUK' : 'KELUAR'
+        const prefix = t.jenis === 'masuk' ? '+' : '-'
+        
+        tableHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${t.tanggal}</td>
+            <td><span class="badge-jenis ${badgeClass}">${badgeText}</span></td>
+            <td><span class="kategori-tag">${t.kategori}</span></td>
+            <td>${t.keterangan}</td>
+            <td class="${kelasJenis}">${prefix}${formatRupiah(t.jumlah)}</td>
+          </tr>
+        `
+      })
+      
+      tableHTML += `
+            </tbody>
+          </table>
+        </div>
+      `
+      
+      transaksiContainer.innerHTML = tableHTML
+    }
+
+    // Update Footer
+    function updateFooter() {
+      document.getElementById('footer-year').textContent = new Date().getFullYear()
+    }
+
+    // Tampilkan Error
+    function tampilkanError(message) {
+      const containers = ['info-container', 'jadwal-container', 'panitia-container', 'saldo-container', 'transaksi-container']
+      
+      containers.forEach(id => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.innerHTML = `
+            <div class="error">
+              <p>⚠️ Gagal memuat data</p>
+              <p style="font-size: 0.9em; margin-top: 5px;">${message}</p>
+            </div>
+          `
+        }
+      })
+    }
+
+    // Jalankan saat halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', muatDatabase)
+  </script>
 </body>
 </html>
