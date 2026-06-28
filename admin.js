@@ -4,7 +4,219 @@ const ADMIN_CREDENTIALS = {
     username: 'admin',
     password: 'pengajian2026'
 };
+// Render Donatur
+function renderDonaturPage() {
+  if (!DB || !DB.donatur) return;
+  const donatur = DB.donatur;
+  
+  // Stats
+  const total = donatur.reduce((sum, d) => sum + d.nominal, 0);
+  document.getElementById('d-total').textContent = formatRp(total);
+  document.getElementById('d-jumlah').textContent = donatur.length;
+  document.getElementById('d-rata').textContent = formatRp(donatur.length ? Math.round(total/donatur.length) : 0);
 
+  // Table
+  const tbody = document.getElementById('donatur-table-body');
+  if (donatur.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="ei">🤝</div><p>Belum ada donatur</p></div></td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = donatur.map((d, i) => `
+    <tr>
+      <td style="color:rgba(255,255,255,0.4);">${i+1}</td>
+      <td style="font-weight:600;">${d.nama}</td>
+      <td style="color:rgba(255,255,255,0.6); font-size:0.9em;">${d.alamat || '-'}</td>
+      <td style="color:#fbbf24; font-weight:700;">${formatRp(d.nominal)}</td>
+      <td>${d.tanggal}</td>
+      <td>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-warning btn-sm" onclick="bukaModalEditDonatur(${i})">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="hapusDonatur(${i})">🗑️</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// Modal Tambah Donatur
+function bukaModalTambahDonatur() {
+  document.getElementById('modalTitle').textContent = '➕ Tambah Donatur';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="form-grid single">
+      <div class="form-group">
+        <label>Nama Lengkap *</label>
+        <input type="text" id="m-d-nama" placeholder="Nama donatur...">
+      </div>
+      <div class="form-group">
+        <label>Alamat Lengkap</label>
+        <textarea id="m-d-alamat" rows="2" placeholder="Alamat lengkap..."></textarea>
+      </div>
+      <div class="form-grid" style="grid-template-columns:1fr 1fr; gap:15px;">
+        <div class="form-group">
+          <label>Nominal (Rp) *</label>
+          <input type="number" id="m-d-nominal" placeholder="1000000" min="1">
+        </div>
+        <div class="form-group">
+          <label>Tanggal *</label>
+          <input type="date" id="m-d-tanggal" value="${new Date().toISOString().split('T')[0]}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Keterangan (opsional)</label>
+        <input type="text" id="m-d-ket" placeholder="Keterangan tambahan...">
+      </div>
+    </div>
+  `;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-ghost" onclick="tutupModal()">Batal</button>
+    <button class="btn btn-success" onclick="simpanDonaturBaru()">💾 Simpan</button>
+  `;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function bukaModalEditDonatur(idx) {
+  const d = DB.donatur[idx];
+  // Parse tanggal format Indonesia ke YYYY-MM-DD
+  const bln = {'Januari':0,'Februari':1,'Maret':2,'April':3,'Mei':4,'Juni':5,'Juli':6,'Agustus':7,'September':8,'Oktober':9,'November':10,'Desember':11};
+  const parts = d.tanggal.split(' ');
+  let tglVal = '';
+  if(parts.length === 3) {
+    const dObj = new Date(parseInt(parts[2]), bln[parts[1]]||0, parseInt(parts[0]));
+    tglVal = dObj.toISOString().split('T')[0];
+  }
+
+  document.getElementById('modalTitle').textContent = '✏️ Edit Donatur';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="form-grid single">
+      <div class="form-group">
+        <label>Nama Lengkap *</label>
+        <input type="text" id="m-d-nama" value="${d.nama}">
+      </div>
+      <div class="form-group">
+        <label>Alamat Lengkap</label>
+        <textarea id="m-d-alamat" rows="2">${d.alamat || ''}</textarea>
+      </div>
+      <div class="form-grid" style="grid-template-columns:1fr 1fr; gap:15px;">
+        <div class="form-group">
+          <label>Nominal (Rp) *</label>
+          <input type="number" id="m-d-nominal" value="${d.nominal}" min="1">
+        </div>
+        <div class="form-group">
+          <label>Tanggal *</label>
+          <input type="date" id="m-d-tanggal" value="${tglVal}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Keterangan (opsional)</label>
+        <input type="text" id="m-d-ket" value="${d.keterangan || ''}">
+      </div>
+    </div>
+  `;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-ghost" onclick="tutupModal()">Batal</button>
+    <button class="btn btn-success" onclick="updateDonatur(${idx})">💾 Simpan</button>
+  `;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+async function simpanDonaturBaru() {
+  const nama = document.getElementById('m-d-nama').value.trim();
+  const alamat = document.getElementById('m-d-alamat').value.trim();
+  const nominal = parseInt(document.getElementById('m-d-nominal').value);
+  const tanggal = document.getElementById('m-d-tanggal').value;
+  const ket = document.getElementById('m-d-ket').value.trim();
+
+  if(!nama || !nominal || !tanggal) {
+    toast('Nama, nominal dan tanggal wajib diisi!', 'error');
+    return;
+  }
+
+  const bln = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const d = new Date(tanggal);
+  const tglIndo = `${d.getDate()} ${bln[d.getMonth()]} ${d.getFullYear()}`;
+
+  const newId = DB.donatur.length > 0 ? Math.max(...DB.donatur.map(x=>x.id)) + 1 : 1;
+  
+  tutupModal();
+  showLoading();
+  
+  try {
+    DB.donatur.push({
+      id: newId,
+      nama, alamat, nominal, 
+      tanggal: tglIndo,
+      keterangan: ket
+    });
+    await saveDB(`Tambah donatur: ${nama} - ${formatRp(nominal)}`);
+    renderDonaturPage();
+    toast('Donatur berhasil ditambahkan!', 'success');
+  } catch(e) {
+    DB.donatur.pop();
+    toast('Gagal: ' + e.message, 'error');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function updateDonatur(idx) {
+  const nama = document.getElementById('m-d-nama').value.trim();
+  const alamat = document.getElementById('m-d-alamat').value.trim();
+  const nominal = parseInt(document.getElementById('m-d-nominal').value);
+  const tanggal = document.getElementById('m-d-tanggal').value;
+  const ket = document.getElementById('m-d-ket').value.trim();
+
+  if(!nama || !nominal || !tanggal) {
+    toast('Nama, nominal dan tanggal wajib diisi!', 'error');
+    return;
+  }
+
+  const bln = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const d = new Date(tanggal);
+  const tglIndo = `${d.getDate()} ${bln[d.getMonth()]} ${d.getFullYear()}`;
+
+  tutupModal();
+  showLoading();
+  
+  const backup = {...DB.donatur[idx]};
+  try {
+    DB.donatur[idx] = {
+      ...DB.donatur[idx],
+      nama, alamat, nominal,
+      tanggal: tglIndo,
+      keterangan: ket
+    };
+    await saveDB(`Update donatur: ${nama}`);
+    renderDonaturPage();
+    toast('Data donatur berhasil diupdate!', 'success');
+  } catch(e) {
+    DB.donatur[idx] = backup;
+    toast('Gagal: ' + e.message, 'error');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function hapusDonatur(idx) {
+  const d = DB.donatur[idx];
+  if(!confirm(`Hapus donatur ${d.nama} (${formatRp(d.nominal)})?`)) return;
+  
+  showLoading();
+  const backup = [...DB.donatur];
+  try {
+    DB.donatur.splice(idx, 1);
+    await saveDB(`Hapus donatur: ${d.nama}`);
+    renderDonaturPage();
+    toast('Donatur berhasil dihapus!', 'success');
+  } catch(e) {
+    DB.donatur = backup;
+    toast('Gagal: ' + e.message, 'error');
+  } finally {
+    hideLoading();
+  }
+}
+
+// Panggil renderDonaturPage() di renderSemua()
 // Data penyimpanan
 let dataDonasi = [];
 let dataPengeluaran = [];
