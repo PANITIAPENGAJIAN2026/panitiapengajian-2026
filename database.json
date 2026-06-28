@@ -40,15 +40,6 @@
   ],
   "kas": {
     "saldo_terakhir": 2500000,
-    "transaksi": [
-      {
-        "id": 1,
-        "tanggal": "1 Januari 2026",
-        "jenis": "masuk",
-        "kategori": "Iuran Panchakra",
-        "keterangan": "Iuran 10 anggota Panchakra @ Rp 250.000",
-        "jumlah": 2500000
-      }
-    ]
+    "transaksi": []
   }
 }
