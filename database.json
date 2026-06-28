@@ -88,6 +88,14 @@
         "kategori": "Donasi",
         "keterangan": "Rt04",
         "jumlah": 1000000
+      },
+      {
+        "id": 7,
+        "tanggal": "28 Juni 2026",
+        "jenis": "masuk",
+        "kategori": "Donasi",
+        "keterangan": "Gang 8",
+        "jumlah": 100000
       }
     ]
   }
